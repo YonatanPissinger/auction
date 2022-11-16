@@ -15,6 +15,9 @@ def send(msg):
     msg_length = len(message)
     send_length = str(msg_length).encode(FORMAT)
 
+if __name__ == "__main__":
+    print("[STARTING] Server is starting...")
+
 
 
 
