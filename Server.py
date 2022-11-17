@@ -1,15 +1,16 @@
 import socket
 import threading
 
-HEADER = 64
+HEADER = 2048
 PORT = 5050
-SERVER = socket.gethostbyname(socket.gethostname())
+SERVER = "127.0.0.1"
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
+
 
 def handle_client(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
@@ -23,19 +24,22 @@ def handle_client(conn, addr):
             if msg == DISCONNECT_MESSAGE:
                 connected = False
 
-        print(f"[{addr}] {msg}")
+            print(f"[{addr}] {msg}")
+            conn.send("Msg received".encode(FORMAT))
 
     conn.close()
 
+
 def start():
     server.listen()
-    print(f"[Listening] Server is listening on {SERVER}")
+    print(f"[LISTENING] Server is listening on {SERVER}")
     while True:
         conn, addr = server.accept()
-        thread = threading.Thread(target = handle_client, args = (conn, addr))
+        thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
-        print(f"[ACTIVE CONNECTION] {threading.activeCount()}")
+        print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 1}")
 
-if __name__ == "__main__":
-    print("[STARTING] Server is starting...")
-    start()
+
+print("[STARTING] server is starting...")
+
+start()
