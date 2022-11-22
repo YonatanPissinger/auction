@@ -1,5 +1,6 @@
 import socket
 import threading
+from protobuf_out import messages
 
 HEADER = 2048
 PORT = 5013
@@ -20,6 +21,12 @@ def handle_client(conn, addr):
         msg_length = conn.recv(HEADER).decode(FORMAT)
         if msg_length:
             msg_length = int(msg_length)
+            bytes_received = conn.recv(msg_length)
+            parsed: messages.MessageToServer = messages.MessageToServer().parse(bytes_received)
+            if parsed.customer_data is not None:
+                print(f"Customer product: {parsed.customer_data.product}")
+            if parsed.seller_data is not None:
+                print(f"Seller product: {parsed.seller_data.product}")
             msg = conn.recv(msg_length).decode(FORMAT)
             if msg == DISCONNECT_MESSAGE:
                 connected = False

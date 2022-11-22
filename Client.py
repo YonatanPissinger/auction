@@ -1,6 +1,8 @@
 import socket
 
-import Customer
+from messages_pb2 import customer_data
+
+
 
 HEADER = 2048
 PORT = 5013
@@ -11,6 +13,10 @@ ADDR = (SERVER, PORT)
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
+
+new_customer = customer_data()
+
+sendd = new_customer.SerialliazeToString()
 
 
 def send(msg):
@@ -24,6 +30,5 @@ def send(msg):
 
 
 if __name__ == "__main__":
-    print("enter your product: ")
-
+    send(sendd)
     send(DISCONNECT_MESSAGE)
