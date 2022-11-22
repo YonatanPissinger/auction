@@ -1,7 +1,9 @@
 import socket
 
+import Customer
+
 HEADER = 2048
-PORT = 5050
+PORT = 5013
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
 SERVER = "127.0.0.1"
@@ -21,10 +23,7 @@ def send(msg):
     print(client.recv(2048).decode(FORMAT))
 
 
-send("Hello World!")
-input()
-send("Hello Everyone!")
-input()
-send("Hello Tim!")
+if __name__ == "__main__":
+    print("enter your product: ")
 
-send(DISCONNECT_MESSAGE)
+    send(DISCONNECT_MESSAGE)

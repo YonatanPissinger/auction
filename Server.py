@@ -2,7 +2,7 @@ import socket
 import threading
 
 HEADER = 2048
-PORT = 5050
+PORT = 5013
 SERVER = "127.0.0.1"
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
@@ -42,4 +42,5 @@ def start():
 
 print("[STARTING] server is starting...")
 
-start()
+if __name__ == "__main__":
+    start()
