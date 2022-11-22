@@ -1,53 +1,36 @@
-import socket
-import threading
+from flask import Flask, request
 from protobuf_out import messages
+import betterproto
+import http
 
-HEADER = 2048
-PORT = 5013
+PORT = 80
 SERVER = "127.0.0.1"
-ADDR = (SERVER, PORT)
-FORMAT = 'utf-8'
-DISCONNECT_MESSAGE = "!DISCONNECT"
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(ADDR)
+app = Flask("Server Name")
 
 
-def handle_client(conn, addr):
-    print(f"[NEW CONNECTION] {addr} connected.")
-
-    connected = True
-    while connected:
-        msg_length = conn.recv(HEADER).decode(FORMAT)
-        if msg_length:
-            msg_length = int(msg_length)
-            bytes_received = conn.recv(msg_length)
-            parsed: messages.MessageToServer = messages.MessageToServer().parse(bytes_received)
-            if parsed.customer_data is not None:
-                print(f"Customer product: {parsed.customer_data.product}")
-            if parsed.seller_data is not None:
-                print(f"Seller product: {parsed.seller_data.product}")
-            msg = conn.recv(msg_length).decode(FORMAT)
-            if msg == DISCONNECT_MESSAGE:
-                connected = False
-
-            print(f"[{addr}] {msg}")
-            conn.send("Msg received".encode(FORMAT))
-
-    conn.close()
-
-
-def start():
-    server.listen()
-    print(f"[LISTENING] Server is listening on {SERVER}")
-    while True:
-        conn, addr = server.accept()
-        thread = threading.Thread(target=handle_client, args=(conn, addr))
-        thread.start()
-        print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 1}")
+@app.route('/', methods=['POST'])
+def parse_request():
+    received_data: bytes = request.data
+    try:
+        received_message: messages.MessageToServer = messages.MessageToServer().parse(received_data)
+        received_messages = betterproto.which_one_of(received_message, "StructMessageToServer")
+        typename = received_messages[0]
+        if typename == "customer_data":
+            return "", http.HTTPStatus.OK
+        elif typename == "seller_data":
+            raise Exception("Too many sellers, help!")
+            message_to_seller = messages.ListCustomerData()
+            customer = messages.CustomerData()
+            customer.product = "Red horse"
+            message_to_seller.customers.append(customer)
+            return bytes(message_to_seller), http.HTTPStatus.OK
+        else:
+            raise Exception(f"Unidentified type {typename}")
+    except Exception as e:
+        server_error = messages.ServerError()
+        server_error.error_message = str(e)
+        return bytes(server_error), http.HTTPStatus.OK
 
 
-print("[STARTING] server is starting...")
-
-if __name__ == "__main__":
-    start()
+app.run(SERVER, PORT, debug=True)

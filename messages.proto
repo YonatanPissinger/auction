@@ -33,7 +33,7 @@ message ServerError {
 }
 
 message MessageToServer {
-    oneof Unnamed {
+    oneof StructMessageToServer {
         CustomerData customer_data = 1;
         SellerData seller_data = 2;
     }
