@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bf54e032-b9a1-4e7c-96cb-ecf7f6aae57f" name="Changes" comment="Added betterproto support (protobuf native for Python)">
-      <change beforePath="$PROJECT_DIR$/.idea/TCP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TCP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messages.proto" beforeDir="false" afterPath="$PROJECT_DIR$/messages.proto" afterDir="false" />
+    <list default="true" id="bf54e032-b9a1-4e7c-96cb-ecf7f6aae57f" name="Changes" comment="Using HTTP server with the libraries &quot;flask&quot; on the server side and &quot;requests&quot; on the client side. WIP implementing API in messages.proto">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compile_protobuf.bat" beforeDir="false" afterPath="$PROJECT_DIR$/compile_protobuf.bat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +95,13 @@
       <option name="presentableId" value="LOCAL‎00001" />
       <updated>1669125939001</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL‎00002" summary="Using HTTP server with the libraries &quot;flask&quot; on the server side and &quot;requests&quot; on the client side. WIP implementing API in messages.proto">
+      <created>1669132815474</created>
+      <option name="number" value="LOCAL‎00002" />
+      <option name="presentableId" value="LOCAL‎00002" />
+      <updated>1669132815474</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -113,6 +117,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added betterproto support (protobuf native for Python)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added betterproto support (protobuf native for Python)" />
+    <MESSAGE value="Using HTTP server with the libraries &quot;flask&quot; on the server side and &quot;requests&quot; on the client side. WIP implementing API in messages.proto" />
+    <option name="LAST_COMMIT_MESSAGE" value="Using HTTP server with the libraries &quot;flask&quot; on the server side and &quot;requests&quot; on the client side. WIP implementing API in messages.proto" />
   </component>
 </project>
