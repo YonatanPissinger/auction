@@ -1,0 +1,4 @@
+Python 3.9.5 64-bit for Windows (global interpreter, not virtualenv)
+PyCharm Build #PC-222.4345.23, built on October 10, 2022
+Windows 10 Pro 22H2
+wxFormBuilder executable for Windows v3.10.1
