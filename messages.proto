@@ -32,9 +32,25 @@ message ServerError {
     string error_message = 1;
 }
 
+message EmptyMessage {}
+
 message MessageToServer {
     oneof StructMessageToServer {
         CustomerData customer_data = 1;
         SellerData seller_data = 2;
+    }
+}
+
+message MessageToSeller {
+    oneof StructMessageToSeller {
+        ListCustomerData list_customer_data = 1;
+        ServerError server_error = 2;
+    }
+}
+
+message MessageToCustomer {
+    oneof StructMessageToCustomer {
+       ServerError server_error = 1;
+       EmptyMessage success = 2;
     }
 }

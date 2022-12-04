@@ -14,3 +14,4 @@ res = requests.post("http://127.0.0.1:80/",
 list_of_relevant_customers: messages.ListCustomerData = messages.ListCustomerData().parse(res.content)
 for customer in list_of_relevant_customers.customers:
     print(f"Customer product: {customer.product}")
+    print(message_to_server.seller_data.color)

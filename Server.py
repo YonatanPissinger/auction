@@ -16,21 +16,33 @@ def parse_request():
         received_message: messages.MessageToServer = messages.MessageToServer().parse(received_data)
         received_messages = betterproto.which_one_of(received_message, "StructMessageToServer")
         typename = received_messages[0]
-        if typename == "customer_data":
-            return "", http.HTTPStatus.OK
-        elif typename == "seller_data":
-            raise Exception("Too many sellers, help!")
-            message_to_seller = messages.ListCustomerData()
-            customer = messages.CustomerData()
-            customer.product = "Red horse"
-            message_to_seller.customers.append(customer)
-            return bytes(message_to_seller), http.HTTPStatus.OK
+        if typename == "seller_data":
+            try:
+                message_to_seller = messages.MessageToSeller()
+                message_to_seller.list_customer_data = messages.ListCustomerData()
+                customer = messages.CustomerData()
+                customer.product = "Red horse"
+                message_to_seller.list_customer_data.customers.append(customer)
+                return bytes(message_to_seller), http.HTTPStatus.OK
+            except Exception as e:
+                message_to_seller = messages.MessageToSeller()
+                message_to_seller.server_error = messages.ServerError()
+                message_to_seller.server_error.error_message = str(e)
+                return bytes(message_to_seller), http.HTTPStatus.OK
+        elif typename == "customer_data":
+            try:
+                message_to_customer = messages.MessageToCustomer()
+                message_to_customer.success = messages.EmptyMessage()
+                return bytes(message_to_customer), http.HTTPStatus.OK
+            except Exception as e:
+                message_to_customer = messages.MessageToCustomer()
+                message_to_customer.server_error = messages.ServerError()
+                message_to_customer.server_error.error_message = str(e)
+                return bytes(message_to_customer), http.HTTPStatus.OK
         else:
-            raise Exception(f"Unidentified type {typename}")
+            raise Exception(f"Unidentified message type received: {typename}")
     except Exception as e:
-        server_error = messages.ServerError()
-        server_error.error_message = str(e)
-        return bytes(server_error), http.HTTPStatus.OK
+        return str(e), http.HTTPStatus.OK
 
 
 app.run(SERVER, PORT, debug=True)
