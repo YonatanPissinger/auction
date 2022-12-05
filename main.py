@@ -1,5 +1,8 @@
 import wx
-from mna import OpenScreen
+from mna import OpenScreen, SellerOrCustomer
+
+if '__main__' == __name__:
+    pass
 
 
 class FirstScreen(OpenScreen):
@@ -7,12 +10,15 @@ class FirstScreen(OpenScreen):
         super().__init__()
 
     def EnterOnButtonClick(self, event):
-        event.Skip()
+        open(SecondScreen)
 
 
-class SecondScreen(OpenScreen):
+class SecondScreen(SellerOrCustomer):
     def __init__(self):
         super().__init__()
+
+
+
 
 
 app = wx.App()
