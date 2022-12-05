@@ -284,8 +284,8 @@ class MyFrame4 ( wx.Frame ):
 
 		bSizer22.Add( ( 0, 0), 2, wx.EXPAND, 0 )
 
-		self.close = wx.Button( self, wx.ID_ANY, u"Close", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer22.Add( self.close, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		self.ButtonClose = wx.Button( self, wx.ID_ANY, u"Close", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer22.Add( self.ButtonClose, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
 		self.SetSizer( bSizer22 )
