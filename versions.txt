@@ -1,4 +1,13 @@
+https://www.python.org/
 Python 3.9.5 64-bit for Windows (global interpreter, not virtualenv)
+
+https://www.jetbrains.com/pycharm/download/#section=windows
 PyCharm Build #PC-222.4345.23, built on October 10, 2022
+
 Windows 10 Pro 22H2
+
+https://github.com/wxFormBuilder/wxFormBuilder/releases/tag/v3.10.1
 wxFormBuilder executable for Windows v3.10.1
+
+https://github.com/protocolbuffers/protobuf/releases/tag/v21.10
+protoc (protobuf compiler), Add protoc-21.10-win64/bin/ to PATH so that any terminal can find protoc.exe

@@ -7,30 +7,17 @@ from typing import List
 import betterproto
 
 
-class Color(betterproto.Enum):
-    COLOR_DEFAULT = 0
-    COLOR_RED = 1
-    COLOR_GREEN = 2
-    COLOR_BLUE = 3
-    COLOR_ORANGE = 4
-    COLOR_YELLOW = 5
-    COLOR_INDIGO = 6
-    COLOR_VIOLET = 7
-
-
 @dataclass
 class CustomerData(betterproto.Message):
     product: str = betterproto.string_field(1)
-    color: "Color" = betterproto.enum_field(2)
-    note: str = betterproto.string_field(3)
-    customer_name: str = betterproto.string_field(4)
-    customer_number: int = betterproto.uint64_field(5)
+    note: str = betterproto.string_field(2)
+    customer_name: str = betterproto.string_field(3)
+    customer_number: int = betterproto.uint64_field(4)
 
 
 @dataclass
 class SellerData(betterproto.Message):
     product: str = betterproto.string_field(1)
-    color: "Color" = betterproto.enum_field(2)
 
 
 @dataclass

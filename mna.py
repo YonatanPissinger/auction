@@ -35,31 +35,26 @@ class OpenScreen ( wx.Frame ):
 
 		bSizer1.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-		bSizer6 = wx.BoxSizer( wx.HORIZONTAL )
+		bSizer18 = wx.BoxSizer( wx.HORIZONTAL )
 
 
-		bSizer6.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
 		self.Enter = wx.Button( self, wx.ID_ANY, u"Log In", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.Enter.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.Enter.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
 		self.Enter.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
 
-		bSizer6.Add( self.Enter, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
+		bSizer18.Add( self.Enter, 1, wx.ALL|wx.EXPAND, 5 )
 
 
-		bSizer6.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
 
-		bSizer1.Add( bSizer6, 5, wx.EXPAND, 5 )
+		bSizer1.Add( bSizer18, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
 		bSizer1.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		bSizer7 = wx.BoxSizer( wx.VERTICAL )
-
-
-		bSizer1.Add( bSizer7, 1, wx.EXPAND, 5 )
 
 
 		self.SetSizer( bSizer1 )
@@ -128,8 +123,20 @@ class SellerOrCustomer ( wx.Frame ):
 
 		self.Centre( wx.BOTH )
 
+		# Connect Events
+		self.Customer.Bind( wx.EVT_BUTTON, self.CustomerOnClick )
+		self.Seller.Bind( wx.EVT_BUTTON, self.SellerOnClick )
+
 	def __del__( self ):
 		pass
+
+
+	# Virtual event handlers, override them in your derived class
+	def CustomerOnClick( self, event ):
+		event.Skip()
+
+	def SellerOnClick( self, event ):
+		event.Skip()
 
 
 ###########################################################################
@@ -171,30 +178,11 @@ class CustomerScreen ( wx.Frame ):
 
 		bSizer17 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_textCtrl2 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer17.Add( self.m_textCtrl2, 0, wx.ALL|wx.EXPAND, 5 )
+		self.TypeBox = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer17.Add( self.TypeBox, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		gSizer1.Add( bSizer17, 1, wx.EXPAND, 0 )
-
-		self.color = wx.StaticText( self, wx.ID_ANY, u"Color:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.color.Wrap( -1 )
-
-		self.color.SetFont( wx.Font( 9, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
-		self.color.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
-
-		gSizer1.Add( self.color, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
-
-		bSizer21 = wx.BoxSizer( wx.VERTICAL )
-
-		productColorChoices = [ u"White", u"Black", u"Red", u"Green", u"Blue" ]
-		self.productColor = wx.ComboBox( self, wx.ID_ANY, u"Transparent", wx.DefaultPosition, wx.DefaultSize, productColorChoices, 0 )
-		self.productColor.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
-
-		bSizer21.Add( self.productColor, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-		gSizer1.Add( bSizer21, 1, wx.EXPAND, 5 )
 
 		self.m_staticText11 = wx.StaticText( self, wx.ID_ANY, u"Coments:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText11.Wrap( -1 )
@@ -204,9 +192,9 @@ class CustomerScreen ( wx.Frame ):
 
 		gSizer1.Add( self.m_staticText11, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
 
-		m_listBox2Choices = []
-		self.m_listBox2 = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_listBox2Choices, 0 )
-		gSizer1.Add( self.m_listBox2, 1, wx.ALL|wx.EXPAND, 5 )
+		ComentBoxChoices = []
+		self.ComentBox = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, ComentBoxChoices, 0 )
+		gSizer1.Add( self.ComentBox, 1, wx.ALL|wx.EXPAND, 5 )
 
 		self.name = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.name.Wrap( -1 )
@@ -218,8 +206,8 @@ class CustomerScreen ( wx.Frame ):
 
 		bSizer19 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_textCtrl21 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer19.Add( self.m_textCtrl21, 0, wx.ALL|wx.EXPAND, 5 )
+		self.NameBox = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer19.Add( self.NameBox, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		gSizer1.Add( bSizer19, 1, wx.EXPAND, 0 )
@@ -234,14 +222,14 @@ class CustomerScreen ( wx.Frame ):
 
 		bSizer20 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_textCtrl3 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer20.Add( self.m_textCtrl3, 0, wx.ALL|wx.EXPAND, 5 )
+		self.PhoneBox = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer20.Add( self.PhoneBox, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		gSizer1.Add( bSizer20, 1, wx.EXPAND, 5 )
 
 
-		bSizer13.Add( gSizer1, 3, wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
+		bSizer13.Add( gSizer1, 3, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer13.Add( ( 0, 0), 1, wx.EXPAND, 5 )
@@ -261,8 +249,16 @@ class CustomerScreen ( wx.Frame ):
 
 		self.Centre( wx.BOTH )
 
+		# Connect Events
+		self.AddButton.Bind( wx.EVT_BUTTON, self.AddButtonOnButtonClick )
+
 	def __del__( self ):
 		pass
+
+
+	# Virtual event handlers, override them in your derived class
+	def AddButtonOnButtonClick( self, event ):
+		event.Skip()
 
 
 ###########################################################################
@@ -342,7 +338,7 @@ class SellerScreen ( wx.Frame ):
 
 		gSizer1 = wx.GridSizer( 2, 2, 0, 0 )
 
-		self.type = wx.StaticText( self, wx.ID_ANY, u"Type:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.type = wx.StaticText( self, wx.ID_ANY, u"Product Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.type.Wrap( -1 )
 
 		self.type.SetFont( wx.Font( 10, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
@@ -352,33 +348,14 @@ class SellerScreen ( wx.Frame ):
 
 		bSizer17 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_textCtrl2 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer17.Add( self.m_textCtrl2, 0, wx.ALL|wx.EXPAND, 5 )
+		self.ProductName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer17.Add( self.ProductName, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		gSizer1.Add( bSizer17, 2, wx.EXPAND, 0 )
 
-		self.color = wx.StaticText( self, wx.ID_ANY, u"Color:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.color.Wrap( -1 )
 
-		self.color.SetFont( wx.Font( 9, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
-		self.color.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
-
-		gSizer1.Add( self.color, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
-
-		bSizer21 = wx.BoxSizer( wx.VERTICAL )
-
-		productColorChoices = [ u"White", u"Black", u"Red", u"Green", u"Blue" ]
-		self.productColor = wx.ComboBox( self, wx.ID_ANY, u"Transparent", wx.DefaultPosition, wx.DefaultSize, productColorChoices, 0 )
-		self.productColor.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
-
-		bSizer21.Add( self.productColor, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-		gSizer1.Add( bSizer21, 1, wx.EXPAND, 5 )
-
-
-		bSizer13.Add( gSizer1, 3, wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 0 )
+		bSizer13.Add( gSizer1, 3, wx.ALL|wx.EXPAND, 0 )
 
 
 		bSizer13.Add( ( 0, 0), 2, wx.EXPAND, 5 )
@@ -399,7 +376,7 @@ class SellerScreen ( wx.Frame ):
 		self.matchButton.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
 		self.matchButton.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
 
-		bSizer35.Add( self.matchButton, 1, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		bSizer35.Add( self.matchButton, 1, wx.ALL, 5 )
 
 
 		bSizer35.Add( ( 0, 0), 1, wx.EXPAND, 5 )
@@ -413,8 +390,16 @@ class SellerScreen ( wx.Frame ):
 
 		self.Centre( wx.BOTH )
 
+		# Connect Events
+		self.matchButton.Bind( wx.EVT_BUTTON, self.matchButtonOnButtonClick )
+
 	def __del__( self ):
 		pass
+
+
+	# Virtual event handlers, override them in your derived class
+	def matchButtonOnButtonClick( self, event ):
+		event.Skip()
 
 
 ###########################################################################

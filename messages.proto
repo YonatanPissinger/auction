@@ -1,27 +1,15 @@
 syntax = "proto3";
 
-enum Color {
-    COLOR_DEFAULT = 0;
-    COLOR_RED = 1;
-    COLOR_GREEN = 2; 
-    COLOR_BLUE = 3;
-    COLOR_ORANGE = 4;
-    COLOR_YELLOW = 5;
-    COLOR_INDIGO = 6;
-    COLOR_VIOLET = 7;
-}
 
 message CustomerData  {
     string product = 1;
-    Color color = 2;
-    string note = 3;
-    string customer_name = 4;
-    uint64 customer_number = 5;
+    string note = 2;
+    string customer_name = 3;
+    uint64 customer_number = 4;
 }
 
 message SellerData  {
     string product = 1;
-    Color color = 2;
 }
 
 message ListCustomerData {

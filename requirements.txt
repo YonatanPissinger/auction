@@ -1,4 +1,4 @@
 requests==2.28.1
 flask==2.2.2
-betterproto==1.2.5
+betterproto[compiler]==1.2.5
 wxPython==4.2.0
