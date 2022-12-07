@@ -192,9 +192,13 @@ class CustomerScreen ( wx.Frame ):
 
 		gSizer1.Add( self.m_staticText11, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
 
-		ComentBoxChoices = []
-		self.ComentBox = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, ComentBoxChoices, 0 )
-		gSizer1.Add( self.ComentBox, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer15 = wx.BoxSizer( wx.VERTICAL )
+
+		self.ComentsBox = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer15.Add( self.ComentsBox, 1, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer1.Add( bSizer15, 1, wx.EXPAND, 5 )
 
 		self.name = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.name.Wrap( -1 )

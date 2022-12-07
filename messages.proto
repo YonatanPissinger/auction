@@ -5,7 +5,7 @@ message CustomerData  {
     string product = 1;
     string note = 2;
     string customer_name = 3;
-    uint64 customer_number = 4;
+    string customer_number = 4;
 }
 
 message SellerData  {
