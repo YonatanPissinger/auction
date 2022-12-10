@@ -12,7 +12,7 @@ class CustomerData(betterproto.Message):
     product: str = betterproto.string_field(1)
     note: str = betterproto.string_field(2)
     customer_name: str = betterproto.string_field(3)
-    customer_number: int = betterproto.uint64_field(4)
+    customer_number: str = betterproto.string_field(4)
 
 
 @dataclass
