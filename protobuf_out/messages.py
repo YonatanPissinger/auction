@@ -31,8 +31,8 @@ class ServerError(betterproto.Message):
 
 
 @dataclass
-class EmptyMessage(betterproto.Message):
-    pass
+class ServerSuccess(betterproto.Message):
+    additional_information: str = betterproto.string_field(1)
 
 
 @dataclass
@@ -60,6 +60,6 @@ class MessageToCustomer(betterproto.Message):
     server_error: "ServerError" = betterproto.message_field(
         1, group="StructMessageToCustomer"
     )
-    success: "EmptyMessage" = betterproto.message_field(
+    success: "ServerSuccess" = betterproto.message_field(
         2, group="StructMessageToCustomer"
     )

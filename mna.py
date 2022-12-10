@@ -352,8 +352,8 @@ class SellerScreen ( wx.Frame ):
 
 		bSizer17 = wx.BoxSizer( wx.VERTICAL )
 
-		self.ProductName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer17.Add( self.ProductName, 0, wx.ALL|wx.EXPAND, 5 )
+		self.ProductBox = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer17.Add( self.ProductBox, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		gSizer1.Add( bSizer17, 2, wx.EXPAND, 0 )

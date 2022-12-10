@@ -20,7 +20,9 @@ message ServerError {
     string error_message = 1;
 }
 
-message EmptyMessage {}
+message ServerSuccess {
+    string additional_information = 1;
+}
 
 message MessageToServer {
     oneof StructMessageToServer {
@@ -39,6 +41,6 @@ message MessageToSeller {
 message MessageToCustomer {
     oneof StructMessageToCustomer {
        ServerError server_error = 1;
-       EmptyMessage success = 2;
+       ServerSuccess success = 2;
     }
 }

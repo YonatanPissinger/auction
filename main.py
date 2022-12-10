@@ -5,6 +5,33 @@ import requests
 import betterproto
 
 
+def QueryServer(data_from_customer: messages.CustomerData):
+    # HTTP POST request to server using "requests" library
+    message_to_server = messages.MessageToServer()
+    message_to_server.customer_data = data_from_customer
+    data_to_server = bytes(message_to_server)
+    res = requests.post("http://127.0.0.1:80/",
+                        data=data_to_server,
+                        headers={'Content-Type': 'application/octet-stream'})
+    # Check status code
+    if res.status_code != requests.codes.ok:
+        raise Exception(f"Server returned status code {res.status_code}")
+    # Parse response from server as messages.MessageToCustomer
+    message_to_customer: messages.MessageToCustomer = messages.MessageToCustomer().parse(res.content)
+    # Check if server returned ServerError or EmptyMessage using "betterproto.which_one_of"
+    received_messages = betterproto.which_one_of(message_to_customer, "StructMessageToCustomer")
+    typename = received_messages[0]
+    if typename == "server_error":
+        error_message: str = message_to_customer.server_error.error_message
+        # Throw exception with error message
+        raise RuntimeError(error_message)
+    elif typename == "success":
+        print(f"Server returned success: {message_to_customer.success.additional_information}")
+        pass
+    else:
+        raise RuntimeError(f"Unexpected message from server: {typename}")
+
+
 class FirstScreen(OpenScreen):
     def __init__(self):
         super().__init__(None)
@@ -36,7 +63,7 @@ class ThirdScreen(CustomerScreen):
 
     def AddButtonOnButtonClick(self, event):
         customer_data = self.GetCustomerData()
-        self.QueryServer(customer_data)
+        QueryServer(customer_data)
         # Tell user that success has occurred
         wx.MessageBox("Success!", "Success", wx.OK | wx.ICON_INFORMATION)
         self.SuccessScreenToCustomer()
@@ -50,33 +77,7 @@ class ThirdScreen(CustomerScreen):
 
         return customer_data
 
-    @staticmethod
-    def QueryServer(data_from_customer: messages.CustomerData):
-        # HTTP POST request to server using "requests" library
-        message_to_server = messages.MessageToServer()
-        message_to_server.customer_data = data_from_customer
-        data_to_server = bytes(message_to_server)
-        res = requests.post("http://127.0.0.1:80/",
-                            data=data_to_server,
-                            headers={'Content-Type': 'application/octet-stream'})
-        # Check status code
-        if res.status_code != requests.codes.ok:
-            raise Exception(f"Server returned status code {res.status_code}")
-        # Parse response from server as messages.MessageToCustomer
-        message_to_customer: messages.MessageToCustomer = messages.MessageToCustomer().parse(res.content)
-        # Check if server returned ServerError or EmptyMessage using "betterproto.which_one_of"
-        received_messages = betterproto.which_one_of(message_to_customer, "StructMessageToCustomer")
-        typename = received_messages[0]
-        if typename == "server_error":
-            error_message: str = message_to_customer.server_error.error_message
-            # Throw exception with error message
-            raise RuntimeError(error_message)
-        elif typename == "success":
-            # Do nothing
 
-            pass
-        else:
-            raise RuntimeError(f"Unexpected message from server: {typename}")
 
     @staticmethod
     def fidbekToCustomer(answer) -> messages.MessageToCustomer:
@@ -94,10 +95,13 @@ class FourthScreen(SellerScreen):
         super().__init__(None)
 
     def matchButtonOnButtonClick(self, event):
-        seller_data = messages.SellerData()
-        seller_data.product = self.ProductName.GetValue()
+        seller_data = self.GetSellerData()
+        QueryServer(seller_data)
 
-        print(seller_data)
+    def GetSellerData(self) -> messages.SellerData:
+        seller_data = messages.SellerData()
+        seller_data.product = self.ProductBox.GetValue()
+        return seller_data
 
 
 class FifthScreen(SuccessScreen):
