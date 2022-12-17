@@ -102,20 +102,41 @@ class SellerOrCustomer ( wx.Frame ):
 
 		bSizer8.Add( ( 0, 0), 1, 0, 3 )
 
+		bSizer16 = wx.BoxSizer( wx.HORIZONTAL )
+
+
+		bSizer16.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
 		self.Customer = wx.Button( self, wx.ID_ANY, u"I wnat enter as a customer", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Customer.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.Customer.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
 		self.Customer.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
 
-		bSizer8.Add( self.Customer, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		bSizer16.Add( self.Customer, 2, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+		bSizer16.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
+		bSizer8.Add( bSizer16, 1, wx.EXPAND, 5 )
+
+		bSizer18 = wx.BoxSizer( wx.HORIZONTAL )
+
+
+		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
 		self.Seller = wx.Button( self, wx.ID_ANY, u"I want enter as a seller", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Seller.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.Seller.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
 		self.Seller.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
 
-		bSizer8.Add( self.Seller, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		bSizer18.Add( self.Seller, 2, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-		bSizer8.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
+		bSizer8.Add( bSizer18, 1, wx.EXPAND, 5 )
 
 
 		self.SetSizer( bSizer8 )
@@ -153,10 +174,10 @@ class CustomerScreen ( wx.Frame ):
 
 		Description = wx.BoxSizer( wx.VERTICAL )
 
-		self.Header = wx.StaticText( self, wx.ID_ANY, u"The product description you want to upload as a request:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Header = wx.StaticText( self, wx.ID_ANY, u"Your product:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.Header.Wrap( -1 )
 
-		self.Header.SetFont( wx.Font( 14, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, True, "Arial" ) )
+		self.Header.SetFont( wx.Font( 16, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, True, "Arial Black" ) )
 		self.Header.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
 
 		Description.Add( self.Header, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -168,10 +189,10 @@ class CustomerScreen ( wx.Frame ):
 
 		gSizer1 = wx.GridSizer( 5, 2, 0, 0 )
 
-		self.type = wx.StaticText( self, wx.ID_ANY, u"Type:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.type = wx.StaticText( self, wx.ID_ANY, u"Product:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.type.Wrap( -1 )
 
-		self.type.SetFont( wx.Font( 10, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
+		self.type.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.type.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
 
 		gSizer1.Add( self.type, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
@@ -187,7 +208,7 @@ class CustomerScreen ( wx.Frame ):
 		self.m_staticText11 = wx.StaticText( self, wx.ID_ANY, u"Coments:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText11.Wrap( -1 )
 
-		self.m_staticText11.SetFont( wx.Font( 9, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
+		self.m_staticText11.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.m_staticText11.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
 
 		gSizer1.Add( self.m_staticText11, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
@@ -203,7 +224,7 @@ class CustomerScreen ( wx.Frame ):
 		self.name = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.name.Wrap( -1 )
 
-		self.name.SetFont( wx.Font( 9, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
+		self.name.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.name.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
 
 		gSizer1.Add( self.name, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
@@ -219,7 +240,7 @@ class CustomerScreen ( wx.Frame ):
 		self.m_staticText7 = wx.StaticText( self, wx.ID_ANY, u"Phone:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText7.Wrap( -1 )
 
-		self.m_staticText7.SetFont( wx.Font( 9, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
+		self.m_staticText7.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.m_staticText7.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
 
 		gSizer1.Add( self.m_staticText7, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
@@ -236,16 +257,27 @@ class CustomerScreen ( wx.Frame ):
 		bSizer13.Add( gSizer1, 3, wx.ALL|wx.EXPAND, 5 )
 
 
-		bSizer13.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		bSizer13.Add( ( 0, 0), 2, wx.EXPAND, 5 )
 
 
-		Description.Add( bSizer13, 1, wx.EXPAND, 0 )
+		Description.Add( bSizer13, 5, wx.EXPAND, 0 )
+
+		bSizer191 = wx.BoxSizer( wx.VERTICAL )
 
 		self.AddButton = wx.Button( self, wx.ID_ANY, u"Add My Product", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.AddButton.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.AddButton.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
 		self.AddButton.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
 
-		Description.Add( self.AddButton, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		bSizer191.Add( self.AddButton, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+		Description.Add( bSizer191, 1, wx.EXPAND, 5 )
+
+		bSizer201 = wx.BoxSizer( wx.VERTICAL )
+
+
+		Description.Add( bSizer201, 1, wx.EXPAND, 5 )
 
 
 		self.SetSizer( Description )
@@ -263,51 +295,6 @@ class CustomerScreen ( wx.Frame ):
 	# Virtual event handlers, override them in your derived class
 	def AddButtonOnButtonClick( self, event ):
 		event.Skip()
-
-
-###########################################################################
-## Class SuccessScreen
-###########################################################################
-
-class SuccessScreen ( wx.Frame ):
-
-	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"uploaded", pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
-
-		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
-		self.SetFont( wx.Font( 13, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-		self.SetBackgroundColour( wx.Colour( 0, 128, 64 ) )
-
-		bSizer22 = wx.BoxSizer( wx.VERTICAL )
-
-
-		bSizer22.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.m_staticText10 = wx.StaticText( self, wx.ID_ANY, u"The request was successfully uploaded!", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText10.Wrap( -1 )
-
-		self.m_staticText10.SetFont( wx.Font( 16, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
-		self.m_staticText10.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
-
-		bSizer22.Add( self.m_staticText10, 1, wx.ALL|wx.EXPAND, 5 )
-
-
-		bSizer22.Add( ( 0, 0), 2, wx.EXPAND, 0 )
-
-		self.ButtonClose = wx.Button( self, wx.ID_ANY, u"Close", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.ButtonClose.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
-		self.ButtonClose.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
-
-		bSizer22.Add( self.ButtonClose, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-		self.SetSizer( bSizer22 )
-		self.Layout()
-
-		self.Centre( wx.BOTH )
-
-	def __del__( self ):
-		pass
 
 
 ###########################################################################

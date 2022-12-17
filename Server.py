@@ -13,8 +13,6 @@ customers_database = Database.Database()
 
 @app.route('/', methods=['POST'])
 def parse_request():
-    # TODO: Remove this line
-    print("Got message!")
     received_data: bytes = request.data
     try:
         received_message: messages.MessageToServer = messages.MessageToServer().parse(received_data)
