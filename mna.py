@@ -40,7 +40,7 @@ class OpenScreen ( wx.Frame ):
 
 		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-		self.Enter = wx.Button( self, wx.ID_ANY, u"Log In", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Enter = wx.Button( self, wx.ID_ANY, u"Entry", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.Enter.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.Enter.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
 		self.Enter.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )

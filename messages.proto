@@ -10,10 +10,28 @@ message CustomerData  {
 
 message SellerData  {
     string product = 1;
+
 }
 
-message ListCustomerData {
-    repeated CustomerData customers = 1;
+message MessageToServer {
+    oneof StructMessageToServer {
+        CustomerData customer_data = 1;
+        SellerData seller_data = 2;
+    }
+}
+
+message MessageToCustomer {
+    oneof StructMessageToCustomer {
+       ServerError server_error = 1;
+       ServerSuccess success = 2;
+    }
+}
+
+message MessageToSeller {
+    oneof StructMessageToSeller {
+        ServerError server_error = 1;
+        ListRelevantCustomerData list_relevant_customer_data = 2;
+    }
 }
 
 message ServerError {
@@ -24,23 +42,6 @@ message ServerSuccess {
     string additional_information = 1;
 }
 
-message MessageToServer {
-    oneof StructMessageToServer {
-        CustomerData customer_data = 1;
-        SellerData seller_data = 2;
-    }
-}
-
-message MessageToSeller {
-    oneof StructMessageToSeller {
-        ListCustomerData list_customer_data = 1;
-        ServerError server_error = 2;
-    }
-}
-
-message MessageToCustomer {
-    oneof StructMessageToCustomer {
-       ServerError server_error = 1;
-       ServerSuccess success = 2;
-    }
+message ListRelevantCustomerData {
+    repeated CustomerData customers = 1;
 }

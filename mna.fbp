@@ -29,7 +29,7 @@
         <property name="use_array_enum">0</property>
         <property name="use_enum">0</property>
         <property name="use_microsoft_bom">0</property>
-        <object class="Frame" expanded="0">
+        <object class="Frame" expanded="1">
             <property name="aui_managed">0</property>
             <property name="aui_manager_style">wxAUI_MGR_DEFAULT</property>
             <property name="bg">0,128,64</property>
@@ -57,7 +57,7 @@
             <property name="window_name"></property>
             <property name="window_style">wxTAB_TRAVERSAL</property>
             <property name="xrc_skip_sizer">1</property>
-            <object class="wxBoxSizer" expanded="0">
+            <object class="wxBoxSizer" expanded="1">
                 <property name="minimum_size"></property>
                 <property name="name">bSizer1</property>
                 <property name="orient">wxVERTICAL</property>
@@ -133,11 +133,11 @@
                         <property name="width">0</property>
                     </object>
                 </object>
-                <object class="sizeritem" expanded="0">
+                <object class="sizeritem" expanded="1">
                     <property name="border">5</property>
                     <property name="flag">wxALIGN_CENTER_HORIZONTAL</property>
                     <property name="proportion">0</property>
-                    <object class="wxBoxSizer" expanded="0">
+                    <object class="wxBoxSizer" expanded="1">
                         <property name="minimum_size"></property>
                         <property name="name">bSizer18</property>
                         <property name="orient">wxHORIZONTAL</property>
@@ -190,7 +190,7 @@
                                 <property name="gripper">0</property>
                                 <property name="hidden">0</property>
                                 <property name="id">wxID_ANY</property>
-                                <property name="label">Log In</property>
+                                <property name="label">Entry</property>
                                 <property name="margins"></property>
                                 <property name="markup">0</property>
                                 <property name="max_size"></property>

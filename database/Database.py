@@ -7,7 +7,7 @@ class Database:
         self._customer_requests: [messages.CustomerData] = []
 
     # Create getter that returns a deep-copy tuple of the list
-    # with a type hint of a tuple whose elements are all of type CustomerData
+    # with a type hint of a tuple whose elements are all type CustomerData
     def customer_requests(self) -> Tuple[messages.CustomerData, ...]:
         return tuple(self._customer_requests)
 
