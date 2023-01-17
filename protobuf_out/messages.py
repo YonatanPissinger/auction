@@ -21,8 +21,33 @@ class SellerData(betterproto.Message):
 
 
 @dataclass
-class ListCustomerData(betterproto.Message):
-    customers: List["CustomerData"] = betterproto.message_field(1)
+class MessageToServer(betterproto.Message):
+    customer_data: "CustomerData" = betterproto.message_field(
+        1, group="StructMessageToServer"
+    )
+    seller_data: "SellerData" = betterproto.message_field(
+        2, group="StructMessageToServer"
+    )
+
+
+@dataclass
+class MessageToCustomer(betterproto.Message):
+    server_error: "ServerError" = betterproto.message_field(
+        1, group="StructMessageToCustomer"
+    )
+    success: "ServerSuccess" = betterproto.message_field(
+        2, group="StructMessageToCustomer"
+    )
+
+
+@dataclass
+class MessageToSeller(betterproto.Message):
+    server_error: "ServerError" = betterproto.message_field(
+        1, group="StructMessageToSeller"
+    )
+    list_relevant_customer_data: "ListRelevantCustomerData" = betterproto.message_field(
+        2, group="StructMessageToSeller"
+    )
 
 
 @dataclass
@@ -36,30 +61,5 @@ class ServerSuccess(betterproto.Message):
 
 
 @dataclass
-class MessageToServer(betterproto.Message):
-    customer_data: "CustomerData" = betterproto.message_field(
-        1, group="StructMessageToServer"
-    )
-    seller_data: "SellerData" = betterproto.message_field(
-        2, group="StructMessageToServer"
-    )
-
-
-@dataclass
-class MessageToSeller(betterproto.Message):
-    list_customer_data: "ListCustomerData" = betterproto.message_field(
-        1, group="StructMessageToSeller"
-    )
-    server_error: "ServerError" = betterproto.message_field(
-        2, group="StructMessageToSeller"
-    )
-
-
-@dataclass
-class MessageToCustomer(betterproto.Message):
-    server_error: "ServerError" = betterproto.message_field(
-        1, group="StructMessageToCustomer"
-    )
-    success: "ServerSuccess" = betterproto.message_field(
-        2, group="StructMessageToCustomer"
-    )
+class ListRelevantCustomerData(betterproto.Message):
+    customers: List["CustomerData"] = betterproto.message_field(1)

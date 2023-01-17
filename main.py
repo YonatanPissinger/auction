@@ -43,17 +43,17 @@ def QueryServerForSeller(data_from_seller: messages.SellerData):
     # Check status code
     if res.status_code != requests.codes.ok:
         raise Exception(f"Server returned status code {res.status_code}")
-    # Parse response from server as messages.MessageToCustomer
+    # Parse response from server as messages.MessageToSeller
     message_to_seller: messages.MessageToSeller = messages.MessageToSeller().parse(res.content)
-    # Check if server returned ServerError or EmptyMessage using "betterproto.which_one_of"
+    # Check if server returned ServerError or RelevantList using "betterproto.which_one_of"
     received_messages = betterproto.which_one_of(message_to_seller, "StructMessageToSeller")
     typename = received_messages[1]
     if typename == "server_error":
         error_message: str = message_to_seller.server_error.error_message
         # Throw exception with error message
         raise RuntimeError(error_message)
-    elif typename == "list_customer_data":
-        print(f"Server returned success: {message_to_seller.list_customer_data.customers}")
+    elif typename == "ListRelevantCustomerData":
+        print(f"Server returned success: {message_to_seller.list_relevant_customer_data.customers}")
         pass
     else:
         raise RuntimeError(f"Unexpected message from server: {typename}")
@@ -63,10 +63,8 @@ class FirstScreen(OpenScreen):
     def __init__(self):
         super().__init__(None)
 
-    def EnterOnButtonClick(self, event):
-        second_screen = SecondScreen()
-        second_screen.Show()
-        self.Close()
+    def EnterButtonOnButtonClick( self, event ):
+        pass
 
 
 class SecondScreen(SellerOrCustomer):

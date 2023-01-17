@@ -22,10 +22,7 @@ def parse_request():
             try:
                 MatchChecking(received_message.seller_data)
                 message_to_seller = messages.MessageToSeller()
-                message_to_seller.list_customer_data = messages.ListCustomerData()
-                customer = messages.CustomerData()
-                customer.product = "Red horse"
-                message_to_seller.list_customer_data.customers.append(customer)
+                message_to_seller.list_relevant_customer_data = messages.ListRelevantCustomerData()
                 return bytes(message_to_seller), http.HTTPStatus.OK
             except Exception as e:
                 message_to_seller = messages.MessageToSeller()
@@ -51,7 +48,8 @@ def parse_request():
         return str(e), http.HTTPStatus.OK
 
 
-def MatchChecking(seller_data):
+def MatchChecking(seller_data: messages.SellerData):
+    print(customers_database.customer_requests())
     for customer in customers_database.customer_requests():
         if customer.product == messages.SellerData.product:
             print("Match found")

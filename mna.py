@@ -30,7 +30,7 @@ class OpenScreen ( wx.Frame ):
 		self.OpenScreen.SetFont( wx.Font( 30, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
 		self.OpenScreen.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
 
-		bSizer1.Add( self.OpenScreen, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 60 )
+		bSizer1.Add( self.OpenScreen, 2, wx.ALIGN_CENTER_HORIZONTAL, 22 )
 
 
 		bSizer1.Add( ( 0, 0), 1, wx.EXPAND, 5 )
@@ -38,23 +38,140 @@ class OpenScreen ( wx.Frame ):
 		bSizer18 = wx.BoxSizer( wx.HORIZONTAL )
 
 
+		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 3 )
+
+		self.Enter = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Enter.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+
+		self.SignIn = wx.Panel( self.Enter, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		gSizer1 = wx.GridSizer( 5, 2, 0, 0 )
+
+		bSizer17 = wx.BoxSizer( wx.VERTICAL )
+
+		self.UserNameBox = wx.TextCtrl( self.SignIn, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer17.Add( self.UserNameBox, 0, wx.ALL, 5 )
+
+
+		gSizer1.Add( bSizer17, 1, wx.EXPAND, 0 )
+
+		self.UserName = wx.StaticText( self.SignIn, wx.ID_ANY, u":שם משתמש", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.UserName.Wrap( -1 )
+
+		self.UserName.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.UserName.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		gSizer1.Add( self.UserName, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		bSizer15 = wx.BoxSizer( wx.VERTICAL )
+
+		self.ComentsBox = wx.TextCtrl( self.SignIn, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer15.Add( self.ComentsBox, 1, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer1.Add( bSizer15, 1, wx.EXPAND, 5 )
+
+		self.Password = wx.StaticText( self.SignIn, wx.ID_ANY, u":סיסמה", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Password.Wrap( -1 )
+
+		self.Password.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.Password.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		gSizer1.Add( self.Password, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+		self.SignIn.SetSizer( gSizer1 )
+		self.SignIn.Layout()
+		gSizer1.Fit( self.SignIn )
+		self.Enter.AddPage( self.SignIn, u"התחבר", False )
+		self.SignUp = wx.Panel( self.Enter, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		gSizer11 = wx.GridSizer( 5, 2, 0, 0 )
+
+		bSizer171 = wx.BoxSizer( wx.VERTICAL )
+
+		self.UserNameBox1 = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer171.Add( self.UserNameBox1, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer11.Add( bSizer171, 1, wx.EXPAND, 0 )
+
+		self.UserName1 = wx.StaticText( self.SignUp, wx.ID_ANY, u":שם משתמש", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.UserName1.Wrap( -1 )
+
+		self.UserName1.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.UserName1.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		gSizer11.Add( self.UserName1, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		bSizer151 = wx.BoxSizer( wx.VERTICAL )
+
+		self.ComentsBox1 = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer151.Add( self.ComentsBox1, 1, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer11.Add( bSizer151, 1, wx.EXPAND, 5 )
+
+		self.m_staticText111 = wx.StaticText( self.SignUp, wx.ID_ANY, u":סיסמה", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText111.Wrap( -1 )
+
+		self.m_staticText111.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.m_staticText111.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		gSizer11.Add( self.m_staticText111, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		bSizer17111 = wx.BoxSizer( wx.VERTICAL )
+
+		self.UserNameBox111 = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer17111.Add( self.UserNameBox111, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer11.Add( bSizer17111, 1, wx.EXPAND, 5 )
+
+		self.m_staticText11111 = wx.StaticText( self.SignUp, wx.ID_ANY, u": מספר טלפון", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText11111.Wrap( -1 )
+
+		self.m_staticText11111.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.m_staticText11111.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		gSizer11.Add( self.m_staticText11111, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		Status = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.CustomerButton = wx.RadioButton( self.SignUp, wx.ID_ANY, u"לקוח", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.CustomerButton.SetFont( wx.Font( 14, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.CustomerButton.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		Status.Add( self.CustomerButton, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+		gSizer11.Add( Status, 1, wx.TOP|wx.BOTTOM|wx.LEFT|wx.EXPAND|wx.ALIGN_RIGHT, 5 )
+
+		bSizer52 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.SellerButton = wx.RadioButton( self.SignUp, wx.ID_ANY, u"מוכר", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.SellerButton.SetFont( wx.Font( 14, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.SellerButton.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		bSizer52.Add( self.SellerButton, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+		gSizer11.Add( bSizer52, 1, wx.EXPAND, 5 )
+
+
+		self.SignUp.SetSizer( gSizer11 )
+		self.SignUp.Layout()
+		gSizer11.Fit( self.SignUp )
+		self.Enter.AddPage( self.SignUp, u"הרשם", True )
+
+		bSizer18.Add( self.Enter, 0, wx.BOTTOM|wx.ALIGN_BOTTOM, 5 )
+
+
 		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-		self.Enter = wx.Button( self, wx.ID_ANY, u"Log In", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.Enter.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-		self.Enter.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
-		self.Enter.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
 
-		bSizer18.Add( self.Enter, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer1.Add( bSizer18, 1, wx.ALIGN_CENTER_HORIZONTAL, 50 )
 
-
-		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-
-		bSizer1.Add( bSizer18, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-		bSizer1.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		self.EnterButton = wx.Button( self, wx.ID_ANY, u"כנס", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer1.Add( self.EnterButton, 0, wx.BOTTOM|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
 		self.SetSizer( bSizer1 )
@@ -63,14 +180,14 @@ class OpenScreen ( wx.Frame ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
-		self.Enter.Bind( wx.EVT_BUTTON, self.EnterOnButtonClick )
+		self.EnterButton.Bind( wx.EVT_BUTTON, self.EnterButtonOnButtonClick )
 
 	def __del__( self ):
 		pass
 
 
 	# Virtual event handlers, override them in your derived class
-	def EnterOnButtonClick( self, event ):
+	def EnterButtonOnButtonClick( self, event ):
 		event.Skip()
 
 
