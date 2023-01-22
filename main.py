@@ -63,8 +63,20 @@ class FirstScreen(OpenScreen):
     def __init__(self):
         super().__init__(None)
 
-    def EnterButtonOnButtonClick( self, event ):
-        pass
+    def EnterButtonOnButtonClick(self, event):
+        customer_data = self.GetCustomerData()
+        QueryServerForCustomer(customer_data)
+        # Tell user that success has occurred
+        wx.MessageBox("Your product uploaded successfully!", "Success", wx.OK | wx.ICON_INFORMATION)
+
+    def GetCustomerData(self) -> messages.CustomerData:
+        customer_data = messages.CustomerData()
+        customer_data.product = self.UserNameBox.GetValue()
+        customer_data.note = self.ComentsBox.GetValue()
+        customer_data.customer_name = self.NameBox.GetValue()
+        customer_data.customer_number = self.PhoneBox.GetValue()
+
+        return customer_data
 
 
 class SecondScreen(SellerOrCustomer):

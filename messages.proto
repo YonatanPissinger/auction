@@ -1,47 +1,51 @@
 syntax = "proto3";
 
+message UserData{
+    string user_name = 1;
+    string password = 2;
+    string phone_number = 3;
+    string status = 4;
+}
 
-message CustomerData  {
+message CustomerProductData{
     string product = 1;
     string note = 2;
-    string customer_name = 3;
-    string customer_number = 4;
 }
 
-message SellerData  {
+message SellerProductData{
     string product = 1;
-
 }
 
-message MessageToServer {
-    oneof StructMessageToServer {
-        CustomerData customer_data = 1;
-        SellerData seller_data = 2;
+message MessageToServer{
+    oneof StructMessageToServer{
+        UserData user_data = 1;
+        CustomerProductData customer_product_data = 2;
+        SellerProductData seller_product_data = 3;
     }
 }
 
-message MessageToCustomer {
-    oneof StructMessageToCustomer {
+message MessageToCustomer{
+    oneof StructMessageToCustomer{
        ServerError server_error = 1;
        ServerSuccess success = 2;
     }
 }
 
-message MessageToSeller {
-    oneof StructMessageToSeller {
+message MessageToSeller{
+    oneof StructMessageToSeller{
         ServerError server_error = 1;
         ListRelevantCustomerData list_relevant_customer_data = 2;
     }
 }
 
-message ServerError {
+message ServerError{
     string error_message = 1;
 }
 
-message ServerSuccess {
+message ServerSuccess{
     string additional_information = 1;
 }
 
-message ListRelevantCustomerData {
-    repeated CustomerData customers = 1;
+message ListRelevantCustomerData{
+    repeated CustomerProductData relevant_customers = 1;
 }
