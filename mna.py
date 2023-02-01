@@ -30,7 +30,7 @@ class OpenScreen ( wx.Frame ):
 		self.OpenScreen.SetFont( wx.Font( 30, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
 		self.OpenScreen.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
 
-		bSizer1.Add( self.OpenScreen, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 60 )
+		bSizer1.Add( self.OpenScreen, 2, wx.ALIGN_CENTER_HORIZONTAL, 22 )
 
 
 		bSizer1.Add( ( 0, 0), 1, wx.EXPAND, 5 )
@@ -38,23 +38,146 @@ class OpenScreen ( wx.Frame ):
 		bSizer18 = wx.BoxSizer( wx.HORIZONTAL )
 
 
+		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 3 )
+
+		self.Enter = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Enter.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+
+		self.SignIn = wx.Panel( self.Enter, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		gSizer1 = wx.GridSizer( 5, 2, 0, 0 )
+
+
+		gSizer1.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
+		gSizer1.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+		bSizer17 = wx.BoxSizer( wx.VERTICAL )
+
+		self.UserNameBoxOfSubscriber = wx.TextCtrl( self.SignIn, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer17.Add( self.UserNameBoxOfSubscriber, 0, wx.ALL, 5 )
+
+
+		gSizer1.Add( bSizer17, 1, wx.EXPAND, 0 )
+
+		self.UserName = wx.StaticText( self.SignIn, wx.ID_ANY, u":שם משתמש", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.UserName.Wrap( -1 )
+
+		self.UserName.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.UserName.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		gSizer1.Add( self.UserName, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		bSizer15 = wx.BoxSizer( wx.VERTICAL )
+
+		self.PasswordBoxOfSubscriber = wx.TextCtrl( self.SignIn, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer15.Add( self.PasswordBoxOfSubscriber, 1, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer1.Add( bSizer15, 1, wx.EXPAND, 5 )
+
+		self.Password = wx.StaticText( self.SignIn, wx.ID_ANY, u":סיסמה", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Password.Wrap( -1 )
+
+		self.Password.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.Password.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		gSizer1.Add( self.Password, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+		self.SignIn.SetSizer( gSizer1 )
+		self.SignIn.Layout()
+		gSizer1.Fit( self.SignIn )
+		self.Enter.AddPage( self.SignIn, u"התחבר", True )
+		self.SignUp = wx.Panel( self.Enter, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		gSizer11 = wx.GridSizer( 5, 2, 0, 0 )
+
+		bSizer171 = wx.BoxSizer( wx.VERTICAL )
+
+		self.UserNameBox = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer171.Add( self.UserNameBox, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer11.Add( bSizer171, 1, wx.EXPAND, 0 )
+
+		self.UserName1 = wx.StaticText( self.SignUp, wx.ID_ANY, u":שם משתמש", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.UserName1.Wrap( -1 )
+
+		self.UserName1.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.UserName1.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		gSizer11.Add( self.UserName1, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		bSizer151 = wx.BoxSizer( wx.VERTICAL )
+
+		self.PasswordBox = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer151.Add( self.PasswordBox, 1, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer11.Add( bSizer151, 1, wx.EXPAND, 5 )
+
+		self.m_staticText111 = wx.StaticText( self.SignUp, wx.ID_ANY, u":סיסמה", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText111.Wrap( -1 )
+
+		self.m_staticText111.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.m_staticText111.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		gSizer11.Add( self.m_staticText111, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		bSizer17111 = wx.BoxSizer( wx.VERTICAL )
+
+		self.PhoneBox = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer17111.Add( self.PhoneBox, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer11.Add( bSizer17111, 1, wx.EXPAND, 5 )
+
+		self.m_staticText11111 = wx.StaticText( self.SignUp, wx.ID_ANY, u": מספר טלפון", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText11111.Wrap( -1 )
+
+		self.m_staticText11111.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.m_staticText11111.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		gSizer11.Add( self.m_staticText11111, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		Status = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.CustomerButton = wx.RadioButton( self.SignUp, wx.ID_ANY, u"לקוח", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.CustomerButton.SetFont( wx.Font( 14, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.CustomerButton.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		Status.Add( self.CustomerButton, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+		gSizer11.Add( Status, 1, wx.TOP|wx.BOTTOM|wx.LEFT|wx.EXPAND|wx.ALIGN_RIGHT, 5 )
+
+		bSizer52 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.SellerButton = wx.RadioButton( self.SignUp, wx.ID_ANY, u"מוכר", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.SellerButton.SetFont( wx.Font( 14, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.SellerButton.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		bSizer52.Add( self.SellerButton, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+		gSizer11.Add( bSizer52, 1, wx.EXPAND, 5 )
+
+
+		self.SignUp.SetSizer( gSizer11 )
+		self.SignUp.Layout()
+		gSizer11.Fit( self.SignUp )
+		self.Enter.AddPage( self.SignUp, u"הרשם", False )
+
+		bSizer18.Add( self.Enter, 0, wx.BOTTOM|wx.ALIGN_BOTTOM, 5 )
+
+
 		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-		self.Enter = wx.Button( self, wx.ID_ANY, u"Log In", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.Enter.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-		self.Enter.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
-		self.Enter.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
 
-		bSizer18.Add( self.Enter, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer1.Add( bSizer18, 1, wx.ALIGN_CENTER_HORIZONTAL, 50 )
 
-
-		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-
-		bSizer1.Add( bSizer18, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-		bSizer1.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		self.EnterButton = wx.Button( self, wx.ID_ANY, u"כנס", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer1.Add( self.EnterButton, 0, wx.BOTTOM|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
 		self.SetSizer( bSizer1 )
@@ -63,100 +186,14 @@ class OpenScreen ( wx.Frame ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
-		self.Enter.Bind( wx.EVT_BUTTON, self.EnterOnButtonClick )
+		self.EnterButton.Bind( wx.EVT_BUTTON, self.EnterButtonOnButtonClick )
 
 	def __del__( self ):
 		pass
 
 
 	# Virtual event handlers, override them in your derived class
-	def EnterOnButtonClick( self, event ):
-		event.Skip()
-
-
-###########################################################################
-## Class SellerOrCustomer
-###########################################################################
-
-class SellerOrCustomer ( wx.Frame ):
-
-	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Enter", pos = wx.DefaultPosition, size = wx.Size( 451,282 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
-
-		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
-		self.SetBackgroundColour( wx.Colour( 0, 128, 64 ) )
-
-		bSizer8 = wx.BoxSizer( wx.VERTICAL )
-
-
-		bSizer8.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.Header = wx.StaticText( self, wx.ID_ANY, u"What do you want to do?", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.Header.Wrap( -1 )
-
-		self.Header.SetFont( wx.Font( 25, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-		self.Header.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
-
-		bSizer8.Add( self.Header, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-		bSizer8.Add( ( 0, 0), 1, 0, 3 )
-
-		bSizer16 = wx.BoxSizer( wx.HORIZONTAL )
-
-
-		bSizer16.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.Customer = wx.Button( self, wx.ID_ANY, u"I wnat enter as a customer", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.Customer.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-		self.Customer.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
-		self.Customer.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
-
-		bSizer16.Add( self.Customer, 2, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
-
-
-		bSizer16.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-
-		bSizer8.Add( bSizer16, 1, wx.EXPAND, 5 )
-
-		bSizer18 = wx.BoxSizer( wx.HORIZONTAL )
-
-
-		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.Seller = wx.Button( self, wx.ID_ANY, u"I want enter as a seller", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.Seller.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-		self.Seller.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
-		self.Seller.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
-
-		bSizer18.Add( self.Seller, 2, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
-
-
-		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-
-		bSizer8.Add( bSizer18, 1, wx.EXPAND, 5 )
-
-
-		self.SetSizer( bSizer8 )
-		self.Layout()
-
-		self.Centre( wx.BOTH )
-
-		# Connect Events
-		self.Customer.Bind( wx.EVT_BUTTON, self.CustomerOnClick )
-		self.Seller.Bind( wx.EVT_BUTTON, self.SellerOnClick )
-
-	def __del__( self ):
-		pass
-
-
-	# Virtual event handlers, override them in your derived class
-	def CustomerOnClick( self, event ):
-		event.Skip()
-
-	def SellerOnClick( self, event ):
+	def EnterButtonOnButtonClick( self, event ):
 		event.Skip()
 
 
@@ -167,7 +204,7 @@ class SellerOrCustomer ( wx.Frame ):
 class CustomerScreen ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Product Description", pos = wx.DefaultPosition, size = wx.Size( 610,415 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Product Description", pos = wx.DefaultPosition, size = wx.Size( 508,332 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.Colour( 0, 128, 64 ) )
@@ -180,104 +217,102 @@ class CustomerScreen ( wx.Frame ):
 		self.Header.SetFont( wx.Font( 16, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, True, "Arial Black" ) )
 		self.Header.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
 
-		Description.Add( self.Header, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-		bSizer13 = wx.BoxSizer( wx.HORIZONTAL )
+		Description.Add( self.Header, 2, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-		bSizer13.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		Description.Add( ( 0, 0), 3, wx.EXPAND, 5 )
 
-		gSizer1 = wx.GridSizer( 5, 2, 0, 0 )
-
-		self.type = wx.StaticText( self, wx.ID_ANY, u"Product:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.type.Wrap( -1 )
-
-		self.type.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-		self.type.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
-
-		gSizer1.Add( self.type, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
-
-		bSizer17 = wx.BoxSizer( wx.VERTICAL )
-
-		self.TypeBox = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer17.Add( self.TypeBox, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer18 = wx.BoxSizer( wx.HORIZONTAL )
 
 
-		gSizer1.Add( bSizer17, 1, wx.EXPAND, 0 )
+		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 3 )
 
-		self.m_staticText11 = wx.StaticText( self, wx.ID_ANY, u"Coments:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText11.Wrap( -1 )
+		self.CustomerProducts = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.CustomerProducts.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 
-		self.m_staticText11.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-		self.m_staticText11.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+		self.ProductsList = wx.Panel( self.CustomerProducts, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer97 = wx.BoxSizer( wx.VERTICAL )
 
-		gSizer1.Add( self.m_staticText11, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+		m_checkList2Choices = []
+		self.m_checkList2 = wx.CheckListBox( self.ProductsList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_checkList2Choices, 0 )
+		bSizer97.Add( self.m_checkList2, 0, wx.ALL, 5 )
 
-		bSizer15 = wx.BoxSizer( wx.VERTICAL )
+		self.m_scrolledWindow2 = wx.ScrolledWindow( self.ProductsList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.m_scrolledWindow2.SetScrollRate( 5, 5 )
+		bSizer97.Add( self.m_scrolledWindow2, 1, wx.EXPAND |wx.ALL, 5 )
 
-		self.ComentsBox = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer15.Add( self.ComentsBox, 1, wx.ALL|wx.EXPAND, 5 )
-
-
-		gSizer1.Add( bSizer15, 1, wx.EXPAND, 5 )
-
-		self.name = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.name.Wrap( -1 )
-
-		self.name.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-		self.name.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
-
-		gSizer1.Add( self.name, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
-
-		bSizer19 = wx.BoxSizer( wx.VERTICAL )
-
-		self.NameBox = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer19.Add( self.NameBox, 0, wx.ALL|wx.EXPAND, 5 )
+		self.m_panel11 = wx.Panel( self.ProductsList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer97.Add( self.m_panel11, 1, wx.EXPAND |wx.ALL, 5 )
 
 
-		gSizer1.Add( bSizer19, 1, wx.EXPAND, 0 )
-
-		self.m_staticText7 = wx.StaticText( self, wx.ID_ANY, u"Phone:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText7.Wrap( -1 )
-
-		self.m_staticText7.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-		self.m_staticText7.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
-
-		gSizer1.Add( self.m_staticText7, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
-
-		bSizer20 = wx.BoxSizer( wx.VERTICAL )
-
-		self.PhoneBox = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer20.Add( self.PhoneBox, 0, wx.ALL|wx.EXPAND, 5 )
+		self.ProductsList.SetSizer( bSizer97 )
+		self.ProductsList.Layout()
+		bSizer97.Fit( self.ProductsList )
+		self.CustomerProducts.AddPage( self.ProductsList, u"מוצרים קודמים", False )
+		self.NewProduct = wx.Panel( self.CustomerProducts, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		gSizer11 = wx.GridSizer( 5, 2, 0, 0 )
 
 
-		gSizer1.Add( bSizer20, 1, wx.EXPAND, 5 )
+		gSizer11.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
 
-		bSizer13.Add( gSizer1, 3, wx.ALL|wx.EXPAND, 5 )
+		gSizer11.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+		bSizer171 = wx.BoxSizer( wx.VERTICAL )
+
+		self.ProductTypeBox = wx.TextCtrl( self.NewProduct, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer171.Add( self.ProductTypeBox, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-		bSizer13.Add( ( 0, 0), 2, wx.EXPAND, 5 )
+		gSizer11.Add( bSizer171, 1, wx.EXPAND, 0 )
+
+		self.UserName1 = wx.StaticText( self.NewProduct, wx.ID_ANY, u":סוג המוצר", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.UserName1.Wrap( -1 )
+
+		self.UserName1.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.UserName1.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		gSizer11.Add( self.UserName1, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		bSizer151 = wx.BoxSizer( wx.VERTICAL )
+
+		self.NoteBox = wx.TextCtrl( self.NewProduct, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer151.Add( self.NoteBox, 1, wx.ALL|wx.EXPAND, 5 )
 
 
-		Description.Add( bSizer13, 5, wx.EXPAND, 0 )
+		gSizer11.Add( bSizer151, 1, wx.EXPAND, 5 )
 
-		bSizer191 = wx.BoxSizer( wx.VERTICAL )
+		self.Note = wx.StaticText( self.NewProduct, wx.ID_ANY, u":הערות ", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Note.Wrap( -1 )
 
-		self.AddButton = wx.Button( self, wx.ID_ANY, u"Add My Product", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Note.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.Note.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		gSizer11.Add( self.Note, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		self.AddButton = wx.Button( self.NewProduct, wx.ID_ANY, u"העלה מוצר", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.AddButton.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.AddButton.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
 		self.AddButton.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
 
-		bSizer191.Add( self.AddButton, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		gSizer11.Add( self.AddButton, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-		Description.Add( bSizer191, 1, wx.EXPAND, 5 )
+		self.NewProduct.SetSizer( gSizer11 )
+		self.NewProduct.Layout()
+		gSizer11.Fit( self.NewProduct )
+		self.CustomerProducts.AddPage( self.NewProduct, u"מוצר חדש", True )
 
-		bSizer201 = wx.BoxSizer( wx.VERTICAL )
+		bSizer18.Add( self.CustomerProducts, 0, wx.BOTTOM|wx.ALIGN_BOTTOM, 5 )
 
 
-		Description.Add( bSizer201, 1, wx.EXPAND, 5 )
+		bSizer18.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
+		Description.Add( bSizer18, 1, wx.EXPAND, 5 )
+
+
+		Description.Add( ( 0, 0), 3, wx.EXPAND, 5 )
 
 
 		self.SetSizer( Description )
@@ -339,8 +374,8 @@ class SellerScreen ( wx.Frame ):
 
 		bSizer17 = wx.BoxSizer( wx.VERTICAL )
 
-		self.ProductBox = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer17.Add( self.ProductBox, 0, wx.ALL|wx.EXPAND, 5 )
+		self.ProductTypeBox_Seller = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer17.Add( self.ProductTypeBox_Seller, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		gSizer1.Add( bSizer17, 2, wx.EXPAND, 0 )
@@ -391,29 +426,5 @@ class SellerScreen ( wx.Frame ):
 	# Virtual event handlers, override them in your derived class
 	def matchButtonOnButtonClick( self, event ):
 		event.Skip()
-
-
-###########################################################################
-## Class Solution
-###########################################################################
-
-class Solution ( wx.Frame ):
-
-	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Solution for Seller", pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
-
-		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
-		self.SetBackgroundColour( wx.Colour( 0, 128, 64 ) )
-
-		bSizer36 = wx.BoxSizer( wx.VERTICAL )
-
-
-		self.SetSizer( bSizer36 )
-		self.Layout()
-
-		self.Centre( wx.BOTH )
-
-	def __del__( self ):
-		pass
 
 

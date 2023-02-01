@@ -8,25 +8,43 @@ import betterproto
 
 
 @dataclass
-class CustomerData(betterproto.Message):
-    product: str = betterproto.string_field(1)
-    note: str = betterproto.string_field(2)
-    customer_name: str = betterproto.string_field(3)
-    customer_number: str = betterproto.string_field(4)
+class NewUserData(betterproto.Message):
+    user_name: str = betterproto.string_field(1)
+    user_password: str = betterproto.string_field(2)
+    user_phone_number: str = betterproto.string_field(3)
+    user_status: str = betterproto.string_field(4)
 
 
 @dataclass
-class SellerData(betterproto.Message):
-    product: str = betterproto.string_field(1)
+class OldUserData(betterproto.Message):
+    user_name: str = betterproto.string_field(1)
+    user_password: str = betterproto.string_field(2)
+
+
+@dataclass
+class CustomerProductData(betterproto.Message):
+    customer_product_type: str = betterproto.string_field(1)
+    customer_note: str = betterproto.string_field(2)
+
+
+@dataclass
+class SellerProductData(betterproto.Message):
+    customer_product_type: str = betterproto.string_field(1)
 
 
 @dataclass
 class MessageToServer(betterproto.Message):
-    customer_data: "CustomerData" = betterproto.message_field(
+    new_user_data: "NewUserData" = betterproto.message_field(
         1, group="StructMessageToServer"
     )
-    seller_data: "SellerData" = betterproto.message_field(
+    old_user_data: "OldUserData" = betterproto.message_field(
         2, group="StructMessageToServer"
+    )
+    customer_product_data: "CustomerProductData" = betterproto.message_field(
+        3, group="StructMessageToServer"
+    )
+    seller_product_data: "SellerProductData" = betterproto.message_field(
+        4, group="StructMessageToServer"
     )
 
 
@@ -62,4 +80,4 @@ class ServerSuccess(betterproto.Message):
 
 @dataclass
 class ListRelevantCustomerData(betterproto.Message):
-    customers: List["CustomerData"] = betterproto.message_field(1)
+    relevant_customers: List["CustomerProductData"] = betterproto.message_field(1)
