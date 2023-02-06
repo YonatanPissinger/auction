@@ -4,17 +4,20 @@ from typing import Tuple, List
 
 class Database:
     def __init__(self):
-        self._customer_requests: [messages.CustomerProductData] = []
-        self._subscribers: [messages.UserData] = []
+        self._users: [messages.NewUserData] = []
+        self._products_list: [messages.CustomerProductData] = []
 
-    def customer_requests(self) -> Tuple[messages.CustomerProductData, ...]:
-        return tuple(self._customer_requests)
+    def UsersListToTuple(self) -> Tuple[messages.NewUserData, ...]:
+        return tuple(self._users)
 
-    def subscribers(self) -> Tuple[messages.UserData, ...]:
-        return tuple(self._customer_requests)
+    def ProductListToTuple(self) -> Tuple[messages.CustomerProductData, ...]:
+        return tuple(self._products_list)
 
-    def add_customer_request(self, customer_request: messages.CustomerProductData):
-        self._customer_requests.append(customer_request)
+    def AddUser(self, user: messages.NewUserData):
+        self._users.append(user)
 
-    def add_user(self, user_request: messages.UserData):
-        self._subscribers.append(user_request)
+    def AddProduct(self, product: messages.CustomerProductData):
+        self._products_list.append(product)
+
+    def RemoveProduct(self, ProductIndex):
+        self._products_list.remove(ProductIndex)

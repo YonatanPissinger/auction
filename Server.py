@@ -4,13 +4,16 @@ from database import Database
 import betterproto
 import http
 import wx
+from main import FirstScreen, SecondScreen, ThirdScreen, ForthScreen
 
 PORT = 80
-SERVER = "0.0.0.0"
+SERVER = "127.0.0.1"
 app = Flask("Server Name")
 
-customers_database = Database.Database()
-users = Database.Database()
+database: Database = Database.Database()
+
+users = database.UsersListToTuple()
+products = database.ProductListToTuple()
 
 
 @app.route('/', methods=['POST'])
@@ -20,92 +23,105 @@ def parse_request(self=None):
         received_message: messages.MessageToServer = messages.MessageToServer().parse(received_data)
         received_messages = betterproto.which_one_of(received_message, "StructMessageToServer")
         typename = received_messages[0]
-        if typename == "user_data":
+        if typename == "new_user_data":
             try:
+                print(1)
+                # check if this username used
                 SignUpCheckDetails(self.received_message.user_data)
-                users.add_user(received_message.user_data)
-                print(users.subscribers())
-                message_to_customer = messages.MessageToCustomer()
-                message_to_customer.success = messages.ServerSuccess()
-                message_to_customer.success.success_message = ""
-                return bytes(message_to_customer), http.HTTPStatus.OK
-            except Exception as e:
-                message_to_customer = messages.MessageToCustomer()
-                message_to_customer.server_error = messages.ServerError()
-                message_to_customer.server_error.error_message = str(e)
-                return bytes(message_to_customer), http.HTTPStatus.OK
 
+                message_to_user = messages.MessageToUser()
+                message_to_user.success = messages.ServerSuccess()
+                message_to_user.success.success_message = ""
+                return bytes(message_to_user), http.HTTPStatus.OK
+            except Exception as e:
+                message_to_user = messages.MessageToUser()
+                message_to_user.server_error = messages.ServerError()
+                message_to_user.server_error.error_message = str(e)
+                return bytes(message_to_user), http.HTTPStatus.OK
         elif typename == "old_user_data":
             try:
-
+                print(2)
+                # check if this username exist
                 SignInCheckDetails(self.received_message.old_user_data)
-            except Exception as e:
-                message_to_customer = messages.MessageToCustomer()
-                message_to_customer.server_error = messages.ServerError()
-                message_to_customer.server_error.error_message = str(e)
-                return bytes(message_to_customer), http.HTTPStatus.OK
 
-        elif typename == "seller_product_data":
-            try:
-                MatchChecking(received_message.seller_product_data)
-                message_to_seller = messages.MessageToSeller()
-                message_to_seller.list_relevant_customer_data = messages.ListRelevantCustomerData()
-                return bytes(message_to_seller), http.HTTPStatus.OK
+                message_to_user = messages.MessageToUser()
+                message_to_user.success = messages.ServerSuccess()
+                message_to_user.success.success_message = ""
             except Exception as e:
-                message_to_seller = messages.MessageToSeller()
-                message_to_seller.server_error = messages.ServerError()
-                message_to_seller.server_error.error_message = str(e)
-                return bytes(message_to_seller), http.HTTPStatus.OK
+                message_to_user = messages.MessageToUser()
+                message_to_user.server_error = messages.ServerError()
+                message_to_user.server_error.error_message = str(e)
+                return bytes(message_to_user), http.HTTPStatus.OK
         elif typename == "customer_product_data":
             try:
-                customers_database.add_customer_request(received_message.customer_product_data)
-                print(customers_database.customer_requests())
-                message_to_customer = messages.MessageToCustomer()
-                message_to_customer.success = messages.ServerSuccess()
-                message_to_customer.success.success_message = ""
-                return bytes(message_to_customer), http.HTTPStatus.OK
+                print(3)
+                # add product
+                AddNewProduct(received_message.customer_product_data)
+
+                message_to_user = messages.MessageToUser()
+                message_to_user.success = messages.ServerSuccess()
+                message_to_user.success.success_message = ""
+                return bytes(message_to_user), http.HTTPStatus.OK
             except Exception as e:
-                message_to_customer = messages.MessageToCustomer()
-                message_to_customer.server_error = messages.ServerError()
-                message_to_customer.server_error.error_message = str(e)
-                return bytes(message_to_customer), http.HTTPStatus.OK
+                message_to_user = messages.MessageToUser()
+                message_to_user.server_error = messages.ServerError()
+                message_to_user.server_error.error_message = str(e)
+                return bytes(message_to_user), http.HTTPStatus.OK
+        elif typename == "seller_product_data":
+            try:
+                print(4)
+                # check matching
+                MatchChecking(received_message.seller_product_data)
+
+                message_to_user = messages.MessageToUser()
+                message_to_user.list_relevant_customer_data = messages.ListRelevantCustomerData()
+                return bytes(message_to_user), http.HTTPStatus.OK
+            except Exception as e:
+                message_to_user = messages.MessageToUser()
+                message_to_user.server_error = messages.ServerError()
+                message_to_user.server_error.error_message = str(e)
+                return bytes(message_to_user), http.HTTPStatus.OK
         else:
             raise Exception(f"Unidentified message type received: {typename}")
     except Exception as e:
         return str(e), http.HTTPStatus.OK
 
 
-def MatchChecking(seller_product_data: messages.SellerProductData):
-    print(customers_database.customer_requests())
-    for customer in customers_database.customer_requests():
-        if customer.product == messages.SellerProductData.product:
-            print("Match found")
-        else:
-            print("No match found")
-
-
-def CheckUserDetails(self):
-    if self.Enter.AddPage(self.SignIn, u"הרשם", True):
-        self.SignUpCheckDetails()
-    else:
-        self.SignInCheckDetails()
-
-
-def SignUpCheckDetails(self):
-    if self.UserNameBox.GetValue() not in users.subscribers():
-        users.add_user(self.GetNewUserData())
-    else:
+def SignUpCheckDetails(user_data: messages.NewUserData()):
+    exist = 0
+    for user in users:
+        if user_data.NewUserNameBox.GetValue() == user.user_name:
+            exist = exist + 1
+    if exist > 0:
         wx.MessageBox("שם המשתמש שהזנת תפוס")
-        self.UserNameBox.clear()
-
-
-def SignInCheckDetails(self):
-    if self.UserNameBoxOfSubscriber.GetValue() in users.subscribers() and self.PasswordBoxOfSubscriber.GetValue() in users.subscribers():
-        pass
+        user_data.UserNameBox.clear()
     else:
-        wx.MessageBox("שם המשתמש שהזנת לא קיים")
-        self.UserNameBoxOfSubscriber.clear()
-        self.PasswordBoxOfSubscriber.clear()
+        database.AddUser(user_data.GetNewUserData())
+    print(users)
+
+
+def SignInCheckDetails(user_data: messages.OldUserData()):
+    exist = 0
+    for user in users:
+        if user_data.OldUserNameBox.GetValue() == user.user_name and user_data.OldUserPasswordBox:
+            exist = 1
+    if exist == 0:
+        wx.MessageBox("שם המשתמש או הסיסמה שהזנת שגויים")
+        user_data.UserNameBoxOfSubscriber.clear()
+        user_data.PasswordBoxOfSubscriber.clear()
+    print(users)
+
+
+def AddNewProduct(customer_product: messages.CustomerProductData()):
+    database.AddProduct(customer_product)
+
+
+def MatchChecking(seller_product: messages.SellerProductData):
+    for product in products:
+        if product.customer_product_type == seller_product.seller_product_type:
+            pass
+        else:
+            wx.MessageBox("לא נמצאו התאמות למוצר שברשותך")
 
 
 app.run(SERVER, PORT, debug=True)

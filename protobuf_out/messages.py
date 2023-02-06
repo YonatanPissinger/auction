@@ -29,7 +29,7 @@ class CustomerProductData(betterproto.Message):
 
 @dataclass
 class SellerProductData(betterproto.Message):
-    customer_product_type: str = betterproto.string_field(1)
+    seller_product_type: str = betterproto.string_field(1)
 
 
 @dataclass
@@ -49,22 +49,13 @@ class MessageToServer(betterproto.Message):
 
 
 @dataclass
-class MessageToCustomer(betterproto.Message):
+class MessageToUser(betterproto.Message):
     server_error: "ServerError" = betterproto.message_field(
-        1, group="StructMessageToCustomer"
+        1, group="StructMessageToUser"
     )
-    success: "ServerSuccess" = betterproto.message_field(
-        2, group="StructMessageToCustomer"
-    )
-
-
-@dataclass
-class MessageToSeller(betterproto.Message):
-    server_error: "ServerError" = betterproto.message_field(
-        1, group="StructMessageToSeller"
-    )
+    success: "ServerSuccess" = betterproto.message_field(2, group="StructMessageToUser")
     list_relevant_customer_data: "ListRelevantCustomerData" = betterproto.message_field(
-        2, group="StructMessageToSeller"
+        3, group="StructMessageToUser"
     )
 
 

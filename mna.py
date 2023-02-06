@@ -17,7 +17,7 @@ import wx.xrc
 class OpenScreen ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Selles App", pos = wx.DefaultPosition, size = wx.Size( 550,307 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Selles App", pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.Colour( 0, 128, 64 ) )
@@ -54,8 +54,8 @@ class OpenScreen ( wx.Frame ):
 
 		bSizer17 = wx.BoxSizer( wx.VERTICAL )
 
-		self.UserNameBoxOfSubscriber = wx.TextCtrl( self.SignIn, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer17.Add( self.UserNameBoxOfSubscriber, 0, wx.ALL, 5 )
+		self.OldUserNameBox = wx.TextCtrl( self.SignIn, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer17.Add( self.OldUserNameBox, 0, wx.ALL, 5 )
 
 
 		gSizer1.Add( bSizer17, 1, wx.EXPAND, 0 )
@@ -70,8 +70,8 @@ class OpenScreen ( wx.Frame ):
 
 		bSizer15 = wx.BoxSizer( wx.VERTICAL )
 
-		self.PasswordBoxOfSubscriber = wx.TextCtrl( self.SignIn, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer15.Add( self.PasswordBoxOfSubscriber, 1, wx.ALL|wx.EXPAND, 5 )
+		self.OldUserPasswordBox = wx.TextCtrl( self.SignIn, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer15.Add( self.OldUserPasswordBox, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		gSizer1.Add( bSizer15, 1, wx.EXPAND, 5 )
@@ -88,14 +88,14 @@ class OpenScreen ( wx.Frame ):
 		self.SignIn.SetSizer( gSizer1 )
 		self.SignIn.Layout()
 		gSizer1.Fit( self.SignIn )
-		self.Enter.AddPage( self.SignIn, u"התחבר", True )
+		self.Enter.AddPage( self.SignIn, u"התחבר", False )
 		self.SignUp = wx.Panel( self.Enter, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		gSizer11 = wx.GridSizer( 5, 2, 0, 0 )
 
 		bSizer171 = wx.BoxSizer( wx.VERTICAL )
 
-		self.UserNameBox = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer171.Add( self.UserNameBox, 0, wx.ALL|wx.EXPAND, 5 )
+		self.NewUserNameBox = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer171.Add( self.NewUserNameBox, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		gSizer11.Add( bSizer171, 1, wx.EXPAND, 0 )
@@ -110,8 +110,8 @@ class OpenScreen ( wx.Frame ):
 
 		bSizer151 = wx.BoxSizer( wx.VERTICAL )
 
-		self.PasswordBox = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer151.Add( self.PasswordBox, 1, wx.ALL|wx.EXPAND, 5 )
+		self.NewUserPasswordBox = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer151.Add( self.NewUserPasswordBox, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		gSizer11.Add( bSizer151, 1, wx.EXPAND, 5 )
@@ -126,8 +126,8 @@ class OpenScreen ( wx.Frame ):
 
 		bSizer17111 = wx.BoxSizer( wx.VERTICAL )
 
-		self.PhoneBox = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer17111.Add( self.PhoneBox, 0, wx.ALL|wx.EXPAND, 5 )
+		self.NewUserPhoneBox = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer17111.Add( self.NewUserPhoneBox, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		gSizer11.Add( bSizer17111, 1, wx.EXPAND, 5 )
@@ -166,7 +166,7 @@ class OpenScreen ( wx.Frame ):
 		self.SignUp.SetSizer( gSizer11 )
 		self.SignUp.Layout()
 		gSizer11.Fit( self.SignUp )
-		self.Enter.AddPage( self.SignUp, u"הרשם", False )
+		self.Enter.AddPage( self.SignUp, u"הרשם", True )
 
 		bSizer18.Add( self.Enter, 0, wx.BOTTOM|wx.ALIGN_BOTTOM, 5 )
 
@@ -186,6 +186,9 @@ class OpenScreen ( wx.Frame ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
+		self.Enter.Bind( wx.EVT_NOTEBOOK_PAGE_CHANGED, self.EnterOnNotebookPageChanged )
+		self.CustomerButton.Bind( wx.EVT_RADIOBUTTON, self.CustomerButtonOnRadioButton )
+		self.SellerButton.Bind( wx.EVT_RADIOBUTTON, self.SellerButtonOnRadioButton )
 		self.EnterButton.Bind( wx.EVT_BUTTON, self.EnterButtonOnButtonClick )
 
 	def __del__( self ):
@@ -193,6 +196,15 @@ class OpenScreen ( wx.Frame ):
 
 
 	# Virtual event handlers, override them in your derived class
+	def EnterOnNotebookPageChanged( self, event ):
+		event.Skip()
+
+	def CustomerButtonOnRadioButton( self, event ):
+		event.Skip()
+
+	def SellerButtonOnRadioButton( self, event ):
+		event.Skip()
+
 	def EnterButtonOnButtonClick( self, event ):
 		event.Skip()
 
@@ -204,7 +216,7 @@ class OpenScreen ( wx.Frame ):
 class CustomerScreen ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Product Description", pos = wx.DefaultPosition, size = wx.Size( 508,332 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Product Description", pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.Colour( 0, 128, 64 ) )
@@ -233,22 +245,21 @@ class CustomerScreen ( wx.Frame ):
 		self.ProductsList = wx.Panel( self.CustomerProducts, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		bSizer97 = wx.BoxSizer( wx.VERTICAL )
 
-		m_checkList2Choices = []
-		self.m_checkList2 = wx.CheckListBox( self.ProductsList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_checkList2Choices, 0 )
-		bSizer97.Add( self.m_checkList2, 0, wx.ALL, 5 )
-
 		self.m_scrolledWindow2 = wx.ScrolledWindow( self.ProductsList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
 		self.m_scrolledWindow2.SetScrollRate( 5, 5 )
-		bSizer97.Add( self.m_scrolledWindow2, 1, wx.EXPAND |wx.ALL, 5 )
+		bSizer20 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_panel11 = wx.Panel( self.ProductsList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		bSizer97.Add( self.m_panel11, 1, wx.EXPAND |wx.ALL, 5 )
+
+		self.m_scrolledWindow2.SetSizer( bSizer20 )
+		self.m_scrolledWindow2.Layout()
+		bSizer20.Fit( self.m_scrolledWindow2 )
+		bSizer97.Add( self.m_scrolledWindow2, 1, wx.EXPAND |wx.ALL, 5 )
 
 
 		self.ProductsList.SetSizer( bSizer97 )
 		self.ProductsList.Layout()
 		bSizer97.Fit( self.ProductsList )
-		self.CustomerProducts.AddPage( self.ProductsList, u"מוצרים קודמים", False )
+		self.CustomerProducts.AddPage( self.ProductsList, u"מוצרים קודמים", True )
 		self.NewProduct = wx.Panel( self.CustomerProducts, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		gSizer11 = wx.GridSizer( 5, 2, 0, 0 )
 
@@ -301,7 +312,7 @@ class CustomerScreen ( wx.Frame ):
 		self.NewProduct.SetSizer( gSizer11 )
 		self.NewProduct.Layout()
 		gSizer11.Fit( self.NewProduct )
-		self.CustomerProducts.AddPage( self.NewProduct, u"מוצר חדש", True )
+		self.CustomerProducts.AddPage( self.NewProduct, u"מוצר חדש", False )
 
 		bSizer18.Add( self.CustomerProducts, 0, wx.BOTTOM|wx.ALIGN_BOTTOM, 5 )
 
@@ -333,13 +344,13 @@ class CustomerScreen ( wx.Frame ):
 
 
 ###########################################################################
-## Class SellerScreen
+## Class SellerRequestScreen
 ###########################################################################
 
-class SellerScreen ( wx.Frame ):
+class SellerRequestScreen ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"suggestion", pos = wx.DefaultPosition, size = wx.Size( 610,415 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"suggestion", pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.Colour( 0, 128, 64 ) )
@@ -426,5 +437,52 @@ class SellerScreen ( wx.Frame ):
 	# Virtual event handlers, override them in your derived class
 	def matchButtonOnButtonClick( self, event ):
 		event.Skip()
+
+
+###########################################################################
+## Class SellerResultScreen
+###########################################################################
+
+class SellerResultScreen ( wx.Frame ):
+
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		self.SetBackgroundColour( wx.Colour( 0, 128, 64 ) )
+
+		bSizer21 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText12 = wx.StaticText( self, wx.ID_ANY, u"\"רשימת \"סוג ", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText12.Wrap( -1 )
+
+		self.m_staticText12.SetFont( wx.Font( 14, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
+		self.m_staticText12.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
+
+		bSizer21.Add( self.m_staticText12, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		bSizer22 = wx.BoxSizer( wx.HORIZONTAL )
+
+
+		bSizer22.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+		self.m_scrolledWindow3 = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.m_scrolledWindow3.SetScrollRate( 5, 5 )
+		bSizer22.Add( self.m_scrolledWindow3, 4, wx.EXPAND |wx.ALL, 5 )
+
+
+		bSizer22.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
+		bSizer21.Add( bSizer22, 1, wx.EXPAND, 5 )
+
+
+		self.SetSizer( bSizer21 )
+		self.Layout()
+
+		self.Centre( wx.BOTH )
+
+	def __del__( self ):
+		pass
 
 

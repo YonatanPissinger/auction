@@ -18,7 +18,7 @@ message CustomerProductData{
 }
 
 message SellerProductData{
-    string customer_product_type = 1;
+    string seller_product_type = 1;
 }
 
 message MessageToServer{
@@ -30,17 +30,11 @@ message MessageToServer{
     }
 }
 
-message MessageToCustomer{
-    oneof StructMessageToCustomer{
+message MessageToUser{
+    oneof StructMessageToUser{
        ServerError server_error = 1;
        ServerSuccess success = 2;
-    }
-}
-
-message MessageToSeller{
-    oneof StructMessageToSeller{
-        ServerError server_error = 1;
-        ListRelevantCustomerData list_relevant_customer_data = 2;
+       ListRelevantCustomerData list_relevant_customer_data = 3;
     }
 }
 
