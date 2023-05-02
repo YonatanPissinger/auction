@@ -95,7 +95,7 @@ class OpenScreen ( wx.Frame ):
 		bSizer171 = wx.BoxSizer( wx.VERTICAL )
 
 		self.NewUserNameBox = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer171.Add( self.NewUserNameBox, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer171.Add( self.NewUserNameBox, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
 		gSizer11.Add( bSizer171, 1, wx.EXPAND, 0 )
@@ -111,7 +111,7 @@ class OpenScreen ( wx.Frame ):
 		bSizer151 = wx.BoxSizer( wx.VERTICAL )
 
 		self.NewUserPasswordBox = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer151.Add( self.NewUserPasswordBox, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer151.Add( self.NewUserPasswordBox, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
 		gSizer11.Add( bSizer151, 1, wx.EXPAND, 5 )
@@ -127,7 +127,7 @@ class OpenScreen ( wx.Frame ):
 		bSizer17111 = wx.BoxSizer( wx.VERTICAL )
 
 		self.NewUserPhoneBox = wx.TextCtrl( self.SignUp, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer17111.Add( self.NewUserPhoneBox, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer17111.Add( self.NewUserPhoneBox, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
 		gSizer11.Add( bSizer17111, 1, wx.EXPAND, 5 )
@@ -259,7 +259,7 @@ class CustomerScreen ( wx.Frame ):
 		self.ProductsList.SetSizer( bSizer97 )
 		self.ProductsList.Layout()
 		bSizer97.Fit( self.ProductsList )
-		self.CustomerProducts.AddPage( self.ProductsList, u"מוצרים קודמים", True )
+		self.CustomerProducts.AddPage( self.ProductsList, u"מוצרים קודמים", False )
 		self.NewProduct = wx.Panel( self.CustomerProducts, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		gSizer11 = wx.GridSizer( 5, 2, 0, 0 )
 
@@ -312,7 +312,7 @@ class CustomerScreen ( wx.Frame ):
 		self.NewProduct.SetSizer( gSizer11 )
 		self.NewProduct.Layout()
 		gSizer11.Fit( self.NewProduct )
-		self.CustomerProducts.AddPage( self.NewProduct, u"מוצר חדש", False )
+		self.CustomerProducts.AddPage( self.NewProduct, u"מוצר חדש", True )
 
 		bSizer18.Add( self.CustomerProducts, 0, wx.BOTTOM|wx.ALIGN_BOTTOM, 5 )
 
@@ -468,6 +468,15 @@ class SellerResultScreen ( wx.Frame ):
 
 		self.m_scrolledWindow3 = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
 		self.m_scrolledWindow3.SetScrollRate( 5, 5 )
+		GridOfPreviousProducts = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_button30 = wx.Button( self.m_scrolledWindow3, wx.ID_ANY, u"MyButton", wx.DefaultPosition, wx.DefaultSize, 0 )
+		GridOfPreviousProducts.Add( self.m_button30, 0, wx.ALL, 5 )
+
+
+		self.m_scrolledWindow3.SetSizer( GridOfPreviousProducts )
+		self.m_scrolledWindow3.Layout()
+		GridOfPreviousProducts.Fit( self.m_scrolledWindow3 )
 		bSizer22.Add( self.m_scrolledWindow3, 4, wx.EXPAND |wx.ALL, 5 )
 
 

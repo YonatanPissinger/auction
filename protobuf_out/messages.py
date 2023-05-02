@@ -23,8 +23,10 @@ class OldUserData(betterproto.Message):
 
 @dataclass
 class CustomerProductData(betterproto.Message):
-    customer_product_type: str = betterproto.string_field(1)
-    customer_note: str = betterproto.string_field(2)
+    user_name: str = betterproto.string_field(1)
+    user_phone_number: str = betterproto.string_field(2)
+    customer_product_type: str = betterproto.string_field(3)
+    customer_note: str = betterproto.string_field(4)
 
 
 @dataclass
@@ -50,10 +52,10 @@ class MessageToServer(betterproto.Message):
 
 @dataclass
 class MessageToUser(betterproto.Message):
+    success: "ServerSuccess" = betterproto.message_field(1, group="StructMessageToUser")
     server_error: "ServerError" = betterproto.message_field(
-        1, group="StructMessageToUser"
+        2, group="StructMessageToUser"
     )
-    success: "ServerSuccess" = betterproto.message_field(2, group="StructMessageToUser")
     list_relevant_customer_data: "ListRelevantCustomerData" = betterproto.message_field(
         3, group="StructMessageToUser"
     )

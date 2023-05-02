@@ -13,8 +13,10 @@ message OldUserData{
 }
 
 message CustomerProductData{
-    string customer_product_type = 1;
-    string customer_note = 2;
+    string user_name = 1;
+    string user_phone_number = 2;
+    string customer_product_type = 3;
+    string customer_note = 4;
 }
 
 message SellerProductData{
@@ -32,8 +34,8 @@ message MessageToServer{
 
 message MessageToUser{
     oneof StructMessageToUser{
-       ServerError server_error = 1;
-       ServerSuccess success = 2;
+       ServerSuccess success = 1;
+       ServerError server_error = 2;
        ListRelevantCustomerData list_relevant_customer_data = 3;
     }
 }
