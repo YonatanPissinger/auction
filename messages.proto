@@ -36,7 +36,8 @@ message MessageToUser{
     oneof StructMessageToUser{
        ServerSuccess success = 1;
        ServerError server_error = 2;
-       ListRelevantCustomerData list_relevant_customer_data = 3;
+       NewUserData full_user_data = 3;
+       ListRelevantCustomerData list_relevant_customer_data = 4;
     }
 }
 

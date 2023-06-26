@@ -16,6 +16,7 @@ def parse_request(self=None):
     received_data: bytes = request.data
     try:
         received_message: messages.MessageToServer = messages.MessageToServer().parse(received_data)
+        received_message.FromString(received_data)
         received_messages = betterproto.which_one_of(received_message, "StructMessageToServer")
         typename = received_messages[0]
         if typename == "new_user_data":
@@ -38,6 +39,12 @@ def parse_request(self=None):
                 data: messages.OldUserData() = received_message.old_user_data
 
                 SignInCheckDetails(data)
+
+                # message_to_user = messages.MessageToUser()
+                # message_to_user.full_user_data = messages.NewUserData()
+                # message_to_user.full_user_data = SignInCheckDetails(data)
+
+                # return bytes(message_to_user.full_user_data), http.HTTPStatus.OK
 
                 message_to_user = messages.MessageToUser()
                 message_to_user.success = messages.ServerSuccess()
@@ -83,6 +90,12 @@ def parse_request(self=None):
         return str(e), http.HTTPStatus.OK
 
 
+@app.route('/', methods=['POST'])
+def SendFullUserData():
+    pass
+    # TODO: send full user data
+
+
 def SignUpCheckDetails(user_data: messages.NewUserData()):
     exist = 0
     users_tuple = database.UsersListToTuple()
@@ -105,7 +118,7 @@ def SignInCheckDetails(user_data: messages.OldUserData()):
         if user_data.user_name == user.user_name and user_data.user_name == user.user_name:
             print("user name and password are correct")
             exist = exist + 1
-            break
+            return user
     if exist == 0:
         print("user name or password are incorrect")
 
@@ -124,4 +137,5 @@ def FindMatch(seller_product: messages.SellerProductData):
     messages.ListRelevantCustomerData = database.RelevantProductsToSellerListToTuple()
 
 
-app.run(SERVER, PORT, debug=True)
+if __name__ == '__main__':
+    app.run(SERVER, PORT, debug=True)

@@ -470,9 +470,6 @@ class SellerResultScreen ( wx.Frame ):
 		self.m_scrolledWindow3.SetScrollRate( 5, 5 )
 		GridOfPreviousProducts = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_button30 = wx.Button( self.m_scrolledWindow3, wx.ID_ANY, u"MyButton", wx.DefaultPosition, wx.DefaultSize, 0 )
-		GridOfPreviousProducts.Add( self.m_button30, 0, wx.ALL, 5 )
-
 
 		self.m_scrolledWindow3.SetSizer( GridOfPreviousProducts )
 		self.m_scrolledWindow3.Layout()

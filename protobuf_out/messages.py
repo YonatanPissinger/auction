@@ -56,8 +56,11 @@ class MessageToUser(betterproto.Message):
     server_error: "ServerError" = betterproto.message_field(
         2, group="StructMessageToUser"
     )
-    list_relevant_customer_data: "ListRelevantCustomerData" = betterproto.message_field(
+    full_user_data: "NewUserData" = betterproto.message_field(
         3, group="StructMessageToUser"
+    )
+    list_relevant_customer_data: "ListRelevantCustomerData" = betterproto.message_field(
+        4, group="StructMessageToUser"
     )
 
 

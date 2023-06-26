@@ -1,15 +1,9 @@
-import os
-import sys
-from datetime import time
-
 import wx
 from mna import OpenScreen, CustomerScreen, SellerRequestScreen, SellerResultScreen
 from protobuf_out import messages
 import requests
 import betterproto
-import Server
 
-database = Server.database
 
 check_customer_or_seller_status: str = ""
 check_new_or_old_user: str = ""
@@ -22,7 +16,7 @@ class FirstScreen(OpenScreen):
     def __init__(self):
         super().__init__(None)
 
-    def UserButtonOnButtonClick(self, event):
+    def EnterButtonOnButtonClick(self, event):
         check = self.EnterOnNotebookPageChanged(event)
         if check == "new":
             new_user_data = self.GetNewUserData()
@@ -118,15 +112,10 @@ class ForthScreen(SellerResultScreen):
         super().__init__(None)
 
 
-
-
-
-
-
 def QueryServerForNewUser(new_user_data: messages.NewUserData):
     message_to_server = messages.MessageToServer()
     message_to_server.new_user_data = new_user_data
-    data_to_server = bytes(message_to_server)
+    data_to_server: bytes = message_to_server.SerializeToString()
     res = requests.post("http://127.0.0.1:80/",
                         data=data_to_server,
                         headers={'Content-Type': 'application/octet-stream'})
@@ -164,7 +153,10 @@ def QueryServerForOldUser(old_user_data: messages.OldUserData):
     message_to_user: messages.MessageToUser = messages.MessageToUser().parse(res.content)
     received_messages = betterproto.which_one_of(message_to_user, "StructMessageToUser")
     typename = received_messages[0]
-    if typename == "success":
+    if typename == "full_user_data":
+        print("פרטי התחברות נשלחו לשרת בהצלחה")
+        wx.MessageBox("אתה מוכר לנו!", "Popup Message", wx.OK | wx.ICON_INFORMATION)
+    elif typename == "success":
         print("פרטי התחברות נשלחו לשרת בהצלחה")
         wx.MessageBox("אתה מוכר לנו!", "Popup Message", wx.OK | wx.ICON_INFORMATION)
     elif typename == "server_error":
@@ -176,9 +168,7 @@ def QueryServerForOldUser(old_user_data: messages.OldUserData):
     else:
         raise RuntimeError(f"Unexpected message from server: {typename}")
 
-    full_data = GetFullDataForOldUser(old_user_data)
-
-    CustomerOrSeller(full_data)
+    # CustomerOrSeller(full_user_data)
 
 
 def QueryServerForCustomerProduct(customer_product_data: messages.CustomerProductData):
@@ -243,17 +233,7 @@ def CustomerOrSeller(user_data: messages.NewUserData):
         third_screen.Show()
 
 
-def GetFullDataForOldUser(user_data: messages.OldUserData):
-    users_list = database.UsersListToTuple()
-    print(users_list)
-    for user in users_list:
-        if user_data.user_name == user.user_name and user_data.user_name == user.user_name:
-            return user
-    return None
-
-
 if __name__ == '__main__':
-    print("hello")
     app = wx.App()
     window = FirstScreen()
     window.Show()
