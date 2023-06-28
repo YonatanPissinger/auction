@@ -53,25 +53,41 @@ class MessageToServer(betterproto.Message):
 @dataclass
 class MessageToUser(betterproto.Message):
     success: "ServerSuccess" = betterproto.message_field(1, group="StructMessageToUser")
-    server_error: "ServerError" = betterproto.message_field(
+    is_exist: "SignUpProblem" = betterproto.message_field(
         2, group="StructMessageToUser"
     )
-    full_user_data: "NewUserData" = betterproto.message_field(
+    incorrect_data: "SignInProblem" = betterproto.message_field(
         3, group="StructMessageToUser"
     )
-    list_relevant_customer_data: "ListRelevantCustomerData" = betterproto.message_field(
+    server_error: "ServerError" = betterproto.message_field(
         4, group="StructMessageToUser"
     )
-
-
-@dataclass
-class ServerError(betterproto.Message):
-    error_message: str = betterproto.string_field(1)
+    full_user_data: "NewUserData" = betterproto.message_field(
+        5, group="StructMessageToUser"
+    )
+    list_relevant_customer_data: "ListRelevantCustomerData" = betterproto.message_field(
+        6, group="StructMessageToUser"
+    )
 
 
 @dataclass
 class ServerSuccess(betterproto.Message):
     additional_information: str = betterproto.string_field(1)
+
+
+@dataclass
+class SignUpProblem(betterproto.Message):
+    user_name_exist: str = betterproto.string_field(1)
+
+
+@dataclass
+class SignInProblem(betterproto.Message):
+    user_name_or_password_incorrect: str = betterproto.string_field(1)
+
+
+@dataclass
+class ServerError(betterproto.Message):
+    error_message: str = betterproto.string_field(1)
 
 
 @dataclass

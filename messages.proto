@@ -35,18 +35,28 @@ message MessageToServer{
 message MessageToUser{
     oneof StructMessageToUser{
        ServerSuccess success = 1;
-       ServerError server_error = 2;
-       NewUserData full_user_data = 3;
-       ListRelevantCustomerData list_relevant_customer_data = 4;
+       SignUpProblem is_exist = 2;
+       SignInProblem incorrect_data = 3;
+       ServerError server_error = 4;
+       NewUserData full_user_data = 5;
+       ListRelevantCustomerData list_relevant_customer_data = 6;
     }
-}
-
-message ServerError{
-    string error_message = 1;
 }
 
 message ServerSuccess{
     string additional_information = 1;
+}
+
+message SignUpProblem{
+    string user_name_exist = 1;
+}
+
+message SignInProblem{
+    string user_name_or_password_incorrect = 1;
+}
+
+message ServerError{
+    string error_message = 1;
 }
 
 message ListRelevantCustomerData{

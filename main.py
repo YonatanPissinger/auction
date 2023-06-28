@@ -129,15 +129,17 @@ def QueryServerForNewUser(new_user_data: messages.NewUserData):
     if typename == "success":
         print("פרטי רישום נשלחו לשרת בהצלחה")
         wx.MessageBox("רישום בוצע בהצלחה!", "Popup Message", wx.OK | wx.ICON_INFORMATION)
+        CustomerOrSeller(new_user_data)
     elif typename == "server_error":
         error_message: str = message_to_user.server_error.error_message
         raise RuntimeError(error_message)
     elif typename == "ListRelevantCustomerData":
         print(f"Server returned success: {message_to_user.list_relevant_customer_data.relevant_customers}")
+    elif typename == "is_exist":
+        print("שם משתמש תפוס")
+        wx.MessageBox("שם המשתמש שהזנת תפוס, נסה שם אחר", "Popup Message", wx.OK | wx.ICON_INFORMATION)
     else:
         raise RuntimeError(f"Unexpected message from server: {typename}")
-
-    CustomerOrSeller(new_user_data)
 
 
 def QueryServerForOldUser(old_user_data: messages.OldUserData):
@@ -154,8 +156,10 @@ def QueryServerForOldUser(old_user_data: messages.OldUserData):
     received_messages = betterproto.which_one_of(message_to_user, "StructMessageToUser")
     typename = received_messages[0]
     if typename == "full_user_data":
+        full_user_data = received_messages[1]
         print("פרטי התחברות נשלחו לשרת בהצלחה")
         wx.MessageBox("אתה מוכר לנו!", "Popup Message", wx.OK | wx.ICON_INFORMATION)
+        CustomerOrSeller(full_user_data)
     elif typename == "success":
         print("פרטי התחברות נשלחו לשרת בהצלחה")
         wx.MessageBox("אתה מוכר לנו!", "Popup Message", wx.OK | wx.ICON_INFORMATION)
@@ -165,10 +169,11 @@ def QueryServerForOldUser(old_user_data: messages.OldUserData):
     elif typename == "ListRelevantCustomerData":
         print(f"Server returned success: {message_to_user.list_relevant_customer_data.relevant_customers}")
         pass
+    elif typename == "incorrect_data":
+        print("שגיאת התחברות")
+        wx.MessageBox("שם המשתמש או הסיסמה שהזנת שגויים!", "Popup Message", wx.OK | wx.ICON_INFORMATION)
     else:
         raise RuntimeError(f"Unexpected message from server: {typename}")
-
-    # CustomerOrSeller(full_user_data)
 
 
 def QueryServerForCustomerProduct(customer_product_data: messages.CustomerProductData):

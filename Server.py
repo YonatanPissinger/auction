@@ -23,12 +23,16 @@ def parse_request(self=None):
             try:
                 data: messages.NewUserData() = received_message.new_user_data
 
-                SignUpCheckDetails(data)
-
-                message_to_user = messages.MessageToUser()
-                message_to_user.success = messages.ServerSuccess()
-                message_to_user.success.success_message = "SignUp Successfully"
-                return bytes(message_to_user), http.HTTPStatus.OK
+                if SignUpCheckDetails(data):
+                    message_to_user = messages.MessageToUser()
+                    message_to_user.success = messages.ServerSuccess()
+                    message_to_user.success.success_message = "SignUp Successfully"
+                    return bytes(message_to_user), http.HTTPStatus.OK
+                else:
+                    message_to_user = messages.MessageToUser()
+                    message_to_user.is_exist = messages.SignUpProblem()
+                    message_to_user.is_exist.user_name_exist = "User Name Is Exist"
+                    return bytes(message_to_user), http.HTTPStatus.OK
             except Exception as e:
                 message_to_user = messages.MessageToUser()
                 message_to_user.server_error = messages.ServerError()
@@ -38,18 +42,27 @@ def parse_request(self=None):
             try:
                 data: messages.OldUserData() = received_message.old_user_data
 
-                SignInCheckDetails(data)
+                if SignInCheckDetails(data):
+                    # message_to_user = messages.MessageToUser()
+                    # message_to_user.success = messages.ServerSuccess()
+                    # message_to_user.success.success_message = "SignIn Successfully"
+                    # return bytes(message_to_user), http.HTTPStatus.OK
+
+                    message_to_user = messages.MessageToUser()
+                    message_to_user.full_user_data = messages.NewUserData()
+                    message_to_user.full_user_data = GefFullUserData(data)
+                    return bytes(message_to_user), http.HTTPStatus.OK
+
+                else:
+                    message_to_user = messages.MessageToUser()
+                    message_to_user.incorrect_data = messages.SignInProblem()
+                    message_to_user.incorrect_data.user_name_or_password_incorrect = "User Name Or Password Incorrect"
+                    return bytes(message_to_user), http.HTTPStatus.OK
 
                 # message_to_user = messages.MessageToUser()
                 # message_to_user.full_user_data = messages.NewUserData()
                 # message_to_user.full_user_data = SignInCheckDetails(data)
-
                 # return bytes(message_to_user.full_user_data), http.HTTPStatus.OK
-
-                message_to_user = messages.MessageToUser()
-                message_to_user.success = messages.ServerSuccess()
-                message_to_user.success.success_message = "SignIn Successfully"
-                return bytes(message_to_user), http.HTTPStatus.OK
             except Exception as e:
                 message_to_user = messages.MessageToUser()
                 message_to_user.server_error = messages.ServerError()
@@ -97,32 +110,38 @@ def SendFullUserData():
 
 
 def SignUpCheckDetails(user_data: messages.NewUserData()):
-    exist = 0
+    user_not_exist = True
     users_tuple = database.UsersListToTuple()
     for user in users_tuple:
         if user_data.user_name == user.user_name:
-            exist = exist + 1
-    if exist > 0:
-        print("user name is not available")
-    else:
+            user_not_exist = False
+    if user_not_exist:
         print("user name is available")
         database.AddUser(user_data)
-
-    print(users_tuple)
+    else:
+        print("user name is not available")
+    return user_not_exist
 
 
 def SignInCheckDetails(user_data: messages.OldUserData()):
-    exist = 0
+    user_exist = False
     users_tuple = database.UsersListToTuple()
     for user in users_tuple:
-        if user_data.user_name == user.user_name and user_data.user_name == user.user_name:
-            print("user name and password are correct")
-            exist = exist + 1
-            return user
-    if exist == 0:
+        if user.user_name == user_data.user_name and user.user_password == user_data.user_password:
+            user_exist = True
+    if user_exist:
+        print("user name and password are correct")
+    else:
         print("user name or password are incorrect")
+    return user_exist
 
-    print(users_tuple)
+
+def GefFullUserData(partial_user_data: messages.OldUserData):
+    users_tuple = database.UsersListToTuple()
+    for user in users_tuple:
+        if user.user_name == partial_user_data.user_name and user.user_password == partial_user_data.user_password:
+            full_user_data = user
+            return full_user_data
 
 
 def AddNewProduct(customer_product: messages.CustomerProductData()):
