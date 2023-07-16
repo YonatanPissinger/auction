@@ -18,6 +18,7 @@ def parse_request(self=None):
         received_message: messages.MessageToServer = messages.MessageToServer().parse(received_data)
         received_message.FromString(received_data)
         received_messages = betterproto.which_one_of(received_message, "StructMessageToServer")
+
         typename = received_messages[0]
         if typename == "new_user_data":
             try:
@@ -25,13 +26,13 @@ def parse_request(self=None):
 
                 if SignUpCheckDetails(data):
                     message_to_user = messages.MessageToUser()
-                    message_to_user.success = messages.ServerSuccess()
-                    message_to_user.success.success_message = "SignUp Successfully"
+                    message_to_user.server_success = messages.ServerSuccess()
+                    message_to_user.server_success.success_message = ""
                     return bytes(message_to_user), http.HTTPStatus.OK
                 else:
                     message_to_user = messages.MessageToUser()
-                    message_to_user.is_exist = messages.SignUpProblem()
-                    message_to_user.is_exist.user_name_exist = "User Name Is Exist"
+                    message_to_user.user_is_exist = messages.SignUpProblem()
+                    message_to_user.user_is_exist.user_name_exist = True
                     return bytes(message_to_user), http.HTTPStatus.OK
             except Exception as e:
                 message_to_user = messages.MessageToUser()
@@ -43,26 +44,17 @@ def parse_request(self=None):
                 data: messages.OldUserData() = received_message.old_user_data
 
                 if SignInCheckDetails(data):
-                    # message_to_user = messages.MessageToUser()
-                    # message_to_user.success = messages.ServerSuccess()
-                    # message_to_user.success.success_message = "SignIn Successfully"
-                    # return bytes(message_to_user), http.HTTPStatus.OK
+                    full_user_data: messages.NewUserData() = GefFullUserData(data)
 
                     message_to_user = messages.MessageToUser()
                     message_to_user.full_user_data = messages.NewUserData()
-                    message_to_user.full_user_data = GefFullUserData(data)
+                    message_to_user.full_user_data = full_user_data
                     return bytes(message_to_user), http.HTTPStatus.OK
-
                 else:
                     message_to_user = messages.MessageToUser()
-                    message_to_user.incorrect_data = messages.SignInProblem()
-                    message_to_user.incorrect_data.user_name_or_password_incorrect = "User Name Or Password Incorrect"
+                    message_to_user.incorrect_user_details = messages.SignInProblem()
+                    message_to_user.incorrect_user_details.user_name_or_password_incorrect = True
                     return bytes(message_to_user), http.HTTPStatus.OK
-
-                # message_to_user = messages.MessageToUser()
-                # message_to_user.full_user_data = messages.NewUserData()
-                # message_to_user.full_user_data = SignInCheckDetails(data)
-                # return bytes(message_to_user.full_user_data), http.HTTPStatus.OK
             except Exception as e:
                 message_to_user = messages.MessageToUser()
                 message_to_user.server_error = messages.ServerError()
@@ -75,9 +67,19 @@ def parse_request(self=None):
                 AddNewProduct(data)
 
                 message_to_user = messages.MessageToUser()
-                message_to_user.success = messages.ServerSuccess()
-                message_to_user.success.success_message = ""
+                message_to_user.server_success = messages.ServerSuccess()
+                message_to_user.server_success.success_message = ""
                 return bytes(message_to_user), http.HTTPStatus.OK
+
+                # list_of_customer: messages.ListCurrentCustomerProducts() = FindCustomerProduct(data)
+
+                # message_to_user = messages.MessageToUser()
+                # message_to_user.current_customer_products = messages.ListCurrentCustomerProducts()
+                # message_to_user.current_customer_products = list_of_customer
+                # return bytes(message_to_user), http.HTTPStatus.OK
+                # WHY IS CONTINUE HERE????
+            # equal to the full user data that sent
+
             except Exception as e:
                 message_to_user = messages.MessageToUser()
                 message_to_user.server_error = messages.ServerError()
@@ -87,10 +89,31 @@ def parse_request(self=None):
             try:
                 data: messages.SellerProductData() = received_message.seller_product_data
 
-                FindMatch(data)
+                if MatchFound(data):
+                    message_to_user = messages.MessageToUser()
+                    message_to_user.match_products = messages.ListMatchProducts()
+                    message_to_user.match_products = FindMatch(data)
+                    return bytes(message_to_user), http.HTTPStatus.OK
+                else:
+                    message_to_user = messages.MessageToUser()
+                    message_to_user.there_is_not_match_product = messages.MatchWasNotFound()
+                    message_to_user.there_is_not_match_product = True
+            except Exception as e:
+                message_to_user = messages.MessageToUser()
+                message_to_user.server_error = messages.ServerError()
+                message_to_user.server_error.error_message = str(e)
+                return bytes(message_to_user), http.HTTPStatus.OK
+        elif typename == "previous_products":
+            try:
+                data: messages.PreviousProductsRequest() = received_message.previous_products
+
+                list_of_customer: messages.ListCurrentCustomerProducts() = FindCustomerProduct(data)
+
+                actually_list = list(list_of_customer)
 
                 message_to_user = messages.MessageToUser()
-                message_to_user.list_relevant_customer_data = messages.ListRelevantCustomerData()
+                message_to_user.current_customer_products = messages.ListCurrentCustomerProducts()
+                message_to_user.current_customer_products = actually_list
                 return bytes(message_to_user), http.HTTPStatus.OK
             except Exception as e:
                 message_to_user = messages.MessageToUser()
@@ -104,11 +127,6 @@ def parse_request(self=None):
 
 
 @app.route('/', methods=['POST'])
-def SendFullUserData():
-    pass
-    # TODO: send full user data
-
-
 def SignUpCheckDetails(user_data: messages.NewUserData()):
     user_not_exist = True
     users_tuple = database.UsersListToTuple()
@@ -148,12 +166,32 @@ def AddNewProduct(customer_product: messages.CustomerProductData()):
     database.AddProduct(customer_product)
 
 
+def MatchFound(seller_product: messages.SellerProductData):
+    products_tuple = database.ProductListToTuple()
+    found = False
+    for product in products_tuple:
+        if product.customer_product_type == seller_product.seller_product_type:
+            found = True
+    return found
+
+
 def FindMatch(seller_product: messages.SellerProductData):
     products_tuple = database.ProductListToTuple()
     for product in products_tuple:
         if product.customer_product_type == seller_product.seller_product_type:
             database.AddMatchingProduct(product)
-    messages.ListRelevantCustomerData = database.RelevantProductsToSellerListToTuple()
+    products_tuple = database.ProductListToTuple()
+    return products_tuple
+
+
+def FindCustomerProduct(customer_name: messages.CustomerProductData.user_name):
+    products_tuple = database.ProductListToTuple()
+    for product in products_tuple:
+        if product.user_name == customer_name.previous_products_user_name_request:
+            database.AddCurrentCustomerProduct(product)
+    customer_products_tuple = database.RelevantProductsOfCustomerListToTuple()
+
+    return customer_products_tuple
 
 
 if __name__ == '__main__':

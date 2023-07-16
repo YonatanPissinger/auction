@@ -1,26 +1,27 @@
 syntax = "proto3";
 
+
 message NewUserData{
     string user_name = 1;
     string user_password = 2;
     string user_phone_number = 3;
     string user_status = 4;
 }
-
 message OldUserData{
     string user_name = 1;
     string user_password = 2;
 }
-
 message CustomerProductData{
     string user_name = 1;
     string user_phone_number = 2;
     string customer_product_type = 3;
     string customer_note = 4;
 }
-
 message SellerProductData{
     string seller_product_type = 1;
+}
+message PreviousProductsRequest{
+    string previous_products_user_name_request = 1;
 }
 
 message MessageToServer{
@@ -29,36 +30,42 @@ message MessageToServer{
         OldUserData old_user_data = 2;
         CustomerProductData customer_product_data = 3;
         SellerProductData seller_product_data = 4;
+        PreviousProductsRequest previous_products = 5;
     }
+}
+
+
+message ServerSuccess{
+    string success_message = 1;
+}
+message ServerError{
+    string error_message = 1;
+}
+message SignUpProblem{
+    bool user_name_exist = 1;
+}
+message SignInProblem{
+    bool user_name_or_password_incorrect = 1;
+}
+message MatchWasNotFound{
+    bool match_not_found = 1;
+}
+message ListCurrentCustomerProducts{
+    repeated CustomerProductData relevant_current_customer_products = 1;
+}
+message ListMatchProducts{
+    repeated CustomerProductData relevant_match_products = 1;
 }
 
 message MessageToUser{
     oneof StructMessageToUser{
-       ServerSuccess success = 1;
-       SignUpProblem is_exist = 2;
-       SignInProblem incorrect_data = 3;
-       ServerError server_error = 4;
-       NewUserData full_user_data = 5;
-       ListRelevantCustomerData list_relevant_customer_data = 6;
+        ServerSuccess server_success = 1;
+        ServerError server_error = 2;
+        NewUserData full_user_data = 3;
+        SignUpProblem user_is_exist = 4;
+        SignInProblem incorrect_user_details = 5;
+        MatchWasNotFound there_is_not_match_product = 6;
+        ListCurrentCustomerProducts current_customer_products = 7;
+        ListMatchProducts match_products = 8;
     }
-}
-
-message ServerSuccess{
-    string additional_information = 1;
-}
-
-message SignUpProblem{
-    string user_name_exist = 1;
-}
-
-message SignInProblem{
-    string user_name_or_password_incorrect = 1;
-}
-
-message ServerError{
-    string error_message = 1;
-}
-
-message ListRelevantCustomerData{
-    repeated CustomerProductData relevant_customers = 1;
 }

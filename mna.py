@@ -223,7 +223,7 @@ class CustomerScreen ( wx.Frame ):
 
 		Description = wx.BoxSizer( wx.VERTICAL )
 
-		self.Header = wx.StaticText( self, wx.ID_ANY, u"Your product:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Header = wx.StaticText( self, wx.ID_ANY, u"Your products:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.Header.Wrap( -1 )
 
 		self.Header.SetFont( wx.Font( 16, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, True, "Arial Black" ) )
@@ -255,11 +255,14 @@ class CustomerScreen ( wx.Frame ):
 		bSizer20.Fit( self.m_scrolledWindow2 )
 		bSizer97.Add( self.m_scrolledWindow2, 1, wx.EXPAND |wx.ALL, 5 )
 
+		self.DownloadButton = wx.Button( self.ProductsList, wx.ID_ANY, u"טען מוצרים קודמים", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer97.Add( self.DownloadButton, 0, wx.ALL, 5 )
+
 
 		self.ProductsList.SetSizer( bSizer97 )
 		self.ProductsList.Layout()
 		bSizer97.Fit( self.ProductsList )
-		self.CustomerProducts.AddPage( self.ProductsList, u"מוצרים קודמים", False )
+		self.CustomerProducts.AddPage( self.ProductsList, u"מוצרים קודמים", True )
 		self.NewProduct = wx.Panel( self.CustomerProducts, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		gSizer11 = wx.GridSizer( 5, 2, 0, 0 )
 
@@ -312,7 +315,7 @@ class CustomerScreen ( wx.Frame ):
 		self.NewProduct.SetSizer( gSizer11 )
 		self.NewProduct.Layout()
 		gSizer11.Fit( self.NewProduct )
-		self.CustomerProducts.AddPage( self.NewProduct, u"מוצר חדש", True )
+		self.CustomerProducts.AddPage( self.NewProduct, u"מוצר חדש", False )
 
 		bSizer18.Add( self.CustomerProducts, 0, wx.BOTTOM|wx.ALIGN_BOTTOM, 5 )
 
@@ -332,6 +335,7 @@ class CustomerScreen ( wx.Frame ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
+		self.DownloadButton.Bind( wx.EVT_BUTTON, self.DownloadedButton_OnButtonClick )
 		self.AddButton.Bind( wx.EVT_BUTTON, self.AddButtonOnButtonClick )
 
 	def __del__( self ):
@@ -339,6 +343,9 @@ class CustomerScreen ( wx.Frame ):
 
 
 	# Virtual event handlers, override them in your derived class
+	def DownloadedButton_OnButtonClick( self, event ):
+		event.Skip()
+
 	def AddButtonOnButtonClick( self, event ):
 		event.Skip()
 

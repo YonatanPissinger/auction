@@ -35,6 +35,11 @@ class SellerProductData(betterproto.Message):
 
 
 @dataclass
+class PreviousProductsRequest(betterproto.Message):
+    previous_products_user_name_request: str = betterproto.string_field(1)
+
+
+@dataclass
 class MessageToServer(betterproto.Message):
     new_user_data: "NewUserData" = betterproto.message_field(
         1, group="StructMessageToServer"
@@ -48,41 +53,14 @@ class MessageToServer(betterproto.Message):
     seller_product_data: "SellerProductData" = betterproto.message_field(
         4, group="StructMessageToServer"
     )
-
-
-@dataclass
-class MessageToUser(betterproto.Message):
-    success: "ServerSuccess" = betterproto.message_field(1, group="StructMessageToUser")
-    is_exist: "SignUpProblem" = betterproto.message_field(
-        2, group="StructMessageToUser"
-    )
-    incorrect_data: "SignInProblem" = betterproto.message_field(
-        3, group="StructMessageToUser"
-    )
-    server_error: "ServerError" = betterproto.message_field(
-        4, group="StructMessageToUser"
-    )
-    full_user_data: "NewUserData" = betterproto.message_field(
-        5, group="StructMessageToUser"
-    )
-    list_relevant_customer_data: "ListRelevantCustomerData" = betterproto.message_field(
-        6, group="StructMessageToUser"
+    previous_products: "PreviousProductsRequest" = betterproto.message_field(
+        5, group="StructMessageToServer"
     )
 
 
 @dataclass
 class ServerSuccess(betterproto.Message):
-    additional_information: str = betterproto.string_field(1)
-
-
-@dataclass
-class SignUpProblem(betterproto.Message):
-    user_name_exist: str = betterproto.string_field(1)
-
-
-@dataclass
-class SignInProblem(betterproto.Message):
-    user_name_or_password_incorrect: str = betterproto.string_field(1)
+    success_message: str = betterproto.string_field(1)
 
 
 @dataclass
@@ -91,5 +69,55 @@ class ServerError(betterproto.Message):
 
 
 @dataclass
-class ListRelevantCustomerData(betterproto.Message):
-    relevant_customers: List["CustomerProductData"] = betterproto.message_field(1)
+class SignUpProblem(betterproto.Message):
+    user_name_exist: bool = betterproto.bool_field(1)
+
+
+@dataclass
+class SignInProblem(betterproto.Message):
+    user_name_or_password_incorrect: bool = betterproto.bool_field(1)
+
+
+@dataclass
+class MatchWasNotFound(betterproto.Message):
+    match_not_found: bool = betterproto.bool_field(1)
+
+
+@dataclass
+class ListCurrentCustomerProducts(betterproto.Message):
+    relevant_current_customer_products: List[
+        "CustomerProductData"
+    ] = betterproto.message_field(1)
+
+
+@dataclass
+class ListMatchProducts(betterproto.Message):
+    relevant_match_products: List["CustomerProductData"] = betterproto.message_field(1)
+
+
+@dataclass
+class MessageToUser(betterproto.Message):
+    server_success: "ServerSuccess" = betterproto.message_field(
+        1, group="StructMessageToUser"
+    )
+    server_error: "ServerError" = betterproto.message_field(
+        2, group="StructMessageToUser"
+    )
+    full_user_data: "NewUserData" = betterproto.message_field(
+        3, group="StructMessageToUser"
+    )
+    user_is_exist: "SignUpProblem" = betterproto.message_field(
+        4, group="StructMessageToUser"
+    )
+    incorrect_user_details: "SignInProblem" = betterproto.message_field(
+        5, group="StructMessageToUser"
+    )
+    there_is_not_match_product: "MatchWasNotFound" = betterproto.message_field(
+        6, group="StructMessageToUser"
+    )
+    current_customer_products: "ListCurrentCustomerProducts" = (
+        betterproto.message_field(7, group="StructMessageToUser")
+    )
+    match_products: "ListMatchProducts" = betterproto.message_field(
+        8, group="StructMessageToUser"
+    )
