@@ -1,12 +1,12 @@
-# Marketplace Chat App
+# Marketplace App
 
-This is a chat application that allows users to sign up as a customer or seller, add/view products, and match sellers to customers based on product requests.
+This is a store application that allows users to sign up as a customer or seller, add/view products, and match sellers to customers based on product requests.
 
 ![uml](./uml.jpg)
 
 ## Overview
 
-This is a chat application that allows users to sign up as a customer or seller, add/view products, and match sellers to customers based on product requests.
+This is a store application that allows users to sign up as a customer or seller, add/view products, and match sellers to customers based on product requests.
 
 The main components are:
 
@@ -29,7 +29,7 @@ For customers, it opens SecondScreen to allow adding/viewing products. It calls 
 
 For sellers, it opens ThirdScreen to get product to match. It calls Server which checks Database and shows matches in FourthScreen.
 
-This separation of concerns with GUI screens, centralized server logic, and mock database allows building up the chat flow and business logic modularly. The components work together to achieve the overall goal of matching buyers and sellers based on product interests.
+This separation of concerns with GUI screens, centralized server logic, and mock database allows building up the market flow and business logic modularly. The components work together to achieve the overall goal of matching buyers and sellers based on product interests.
 
 
 Here are some conceptual differences that make this app unique compared to other typical market apps:
