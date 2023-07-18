@@ -1,6 +1,3 @@
-Here is the README.md with the project overview, UML image, and nicely formatted additional text:
-
-```
 # Marketplace Chat App
 
 This is a chat application that allows users to sign up as a customer or seller, add/view products, and match sellers to customers based on product requests.
@@ -48,5 +45,3 @@ Here are some conceptual differences that make this app unique compared to other
 - **Text-based preferences**: Buyers describe product interests through text rather than browsing catalogs. This allows more flexibility.
 
 - **Two-way matching**: Once matched, buyers and sellers can contact each other directly for further discussions. Some apps lack this feedback loop.
-
-```
