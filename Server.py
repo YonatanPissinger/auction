@@ -90,9 +90,13 @@ def parse_request(self=None):
                 data: messages.SellerProductData() = received_message.seller_product_data
 
                 if MatchFound(data):
+                    list_of_matching = FindMatch(data)
+
+                    actually_list = list(list_of_matching)
+
                     message_to_user = messages.MessageToUser()
                     message_to_user.match_products = messages.ListMatchProducts()
-                    message_to_user.match_products = FindMatch(data)
+                    message_to_user.match_products = actually_list
                     return bytes(message_to_user), http.HTTPStatus.OK
                 else:
                     message_to_user = messages.MessageToUser()
@@ -172,6 +176,7 @@ def MatchFound(seller_product: messages.SellerProductData):
     for product in products_tuple:
         if product.customer_product_type == seller_product.seller_product_type:
             found = True
+            return found
     return found
 
 
@@ -180,7 +185,7 @@ def FindMatch(seller_product: messages.SellerProductData):
     for product in products_tuple:
         if product.customer_product_type == seller_product.seller_product_type:
             database.AddMatchingProduct(product)
-    products_tuple = database.ProductListToTuple()
+    products_tuple = database.RelevantProductsToSellerListToTuple()
     return products_tuple
 
 
