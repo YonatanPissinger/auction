@@ -2,7 +2,7 @@
 
 This is a chat application that allows users to sign up as a customer or seller, add/view products, and match sellers to customers based on product requests.
 
-![uml](./uml.png)
+![uml](./uml.jpg)
 
 ## Overview
 
