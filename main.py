@@ -253,7 +253,7 @@ def QueryServerForPreviousProductRequest(customer_name_request: messages.Previou
 
     typename = received_messages[0]
     if typename == "current_customer_products":
-        pass
+        print(received_messages[1])
     elif typename == "server_error":
         error_message: str = message_to_user.server_error.error_message
         raise RuntimeError(error_message)

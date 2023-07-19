@@ -12,7 +12,7 @@ database = Database.Database()
 
 
 @app.route('/', methods=['POST'])
-def parse_request(self=None):
+def parse_request():
     received_data: bytes = request.data
     try:
         received_message: messages.MessageToServer = messages.MessageToServer().parse(received_data)
@@ -70,16 +70,6 @@ def parse_request(self=None):
                 message_to_user.server_success = messages.ServerSuccess()
                 message_to_user.server_success.success_message = ""
                 return bytes(message_to_user), http.HTTPStatus.OK
-
-                # list_of_customer: messages.ListCurrentCustomerProducts() = FindCustomerProduct(data)
-
-                # message_to_user = messages.MessageToUser()
-                # message_to_user.current_customer_products = messages.ListCurrentCustomerProducts()
-                # message_to_user.current_customer_products = list_of_customer
-                # return bytes(message_to_user), http.HTTPStatus.OK
-                # WHY IS CONTINUE HERE????
-            # equal to the full user data that sent
-
             except Exception as e:
                 message_to_user = messages.MessageToUser()
                 message_to_user.server_error = messages.ServerError()
@@ -90,13 +80,11 @@ def parse_request(self=None):
                 data: messages.SellerProductData() = received_message.seller_product_data
 
                 if MatchFound(data):
-                    list_of_matching = FindMatch(data)
-
-                    actually_list = list(list_of_matching)
+                    list_of_matching: list = list(FindMatch(data))
 
                     message_to_user = messages.MessageToUser()
                     message_to_user.match_products = messages.ListMatchProducts()
-                    message_to_user.match_products.relevant_match_products.extend(actually_list)
+                    message_to_user.match_products.relevant_match_products.extend(list_of_matching)
                     return bytes(message_to_user), http.HTTPStatus.OK
                 else:
                     message_to_user = messages.MessageToUser()
@@ -111,13 +99,11 @@ def parse_request(self=None):
             try:
                 data: messages.PreviousProductsRequest() = received_message.previous_products
 
-                list_of_customer: messages.ListCurrentCustomerProducts() = FindCustomerProduct(data)
-
-                actually_list = list(list_of_customer)
+                list_of_customer: list = list(FindCustomerProduct(data))
 
                 message_to_user = messages.MessageToUser()
                 message_to_user.current_customer_products = messages.ListCurrentCustomerProducts()
-                message_to_user.current_customer_products = actually_list
+                message_to_user.current_customer_products.relevant_current_customer_products.extend(list_of_customer)
                 return bytes(message_to_user), http.HTTPStatus.OK
             except Exception as e:
                 message_to_user = messages.MessageToUser()
