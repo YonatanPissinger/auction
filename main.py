@@ -3,6 +3,7 @@ from mna import OpenScreen, CustomerScreen, SellerRequestScreen, SellerResultScr
 from protobuf_out import messages
 import requests
 import betterproto
+from flask import Flask, request
 
 
 check_customer_or_seller_status: str = ""
@@ -218,13 +219,16 @@ def QueryServerForSellerProduct(seller_product_data: messages.SellerProductData)
 
     if res.status_code != requests.codes.ok:
         raise Exception(f"Server returned status code {res.status_code}")
+
     message_to_user: messages.MessageToUser = messages.MessageToUser().parse(res.content)
+    message_to_user.match_products.FromString(res.content)
     received_messages = betterproto.which_one_of(message_to_user, "StructMessageToUser")
 
     typename = received_messages[0]
-    if typename == "server_success":
-        print("מוצר נשלח לבדיקת התאמה בהצלחה")
-    if typename == "server_error":
+
+    if typename == "match_products":
+        print(received_messages[1])
+    elif typename == "server_error":
         error_message: str = message_to_user.server_error.error_message
         raise RuntimeError(error_message)
     elif typename == "":

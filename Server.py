@@ -96,7 +96,7 @@ def parse_request(self=None):
 
                     message_to_user = messages.MessageToUser()
                     message_to_user.match_products = messages.ListMatchProducts()
-                    message_to_user.match_products = actually_list
+                    message_to_user.match_products.relevant_match_products.extend(actually_list)
                     return bytes(message_to_user), http.HTTPStatus.OK
                 else:
                     message_to_user = messages.MessageToUser()
