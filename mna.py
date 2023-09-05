@@ -44,7 +44,7 @@ class OpenScreen ( wx.Frame ):
 		self.Enter.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 
 		self.SignIn = wx.Panel( self.Enter, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		gSizer1 = wx.GridSizer( 5, 2, 0, 0 )
+		gSizer1 = wx.GridSizer( 4, 2, 0, 0 )
 
 
 		gSizer1.Add( ( 0, 0), 1, wx.EXPAND, 5 )
@@ -88,9 +88,9 @@ class OpenScreen ( wx.Frame ):
 		self.SignIn.SetSizer( gSizer1 )
 		self.SignIn.Layout()
 		gSizer1.Fit( self.SignIn )
-		self.Enter.AddPage( self.SignIn, u"התחבר", False )
+		self.Enter.AddPage( self.SignIn, u"התחבר", True )
 		self.SignUp = wx.Panel( self.Enter, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		gSizer11 = wx.GridSizer( 5, 2, 0, 0 )
+		gSizer11 = wx.GridSizer( 4, 2, 0, 0 )
 
 		bSizer171 = wx.BoxSizer( wx.VERTICAL )
 
@@ -166,7 +166,7 @@ class OpenScreen ( wx.Frame ):
 		self.SignUp.SetSizer( gSizer11 )
 		self.SignUp.Layout()
 		gSizer11.Fit( self.SignUp )
-		self.Enter.AddPage( self.SignUp, u"הרשם", True )
+		self.Enter.AddPage( self.SignUp, u"הרשם", False )
 
 		bSizer18.Add( self.Enter, 0, wx.BOTTOM|wx.ALIGN_BOTTOM, 5 )
 
@@ -177,6 +177,10 @@ class OpenScreen ( wx.Frame ):
 		bSizer1.Add( bSizer18, 1, wx.ALIGN_CENTER_HORIZONTAL, 50 )
 
 		self.EnterButton = wx.Button( self, wx.ID_ANY, u"כנס", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.EnterButton.SetFont( wx.Font( 16, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.EnterButton.SetForegroundColour( wx.Colour( 0, 128, 0 ) )
+		self.EnterButton.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
+
 		bSizer1.Add( self.EnterButton, 0, wx.BOTTOM|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
@@ -247,15 +251,13 @@ class CustomerScreen ( wx.Frame ):
 
 		self.m_scrolledWindow2 = wx.ScrolledWindow( self.ProductsList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
 		self.m_scrolledWindow2.SetScrollRate( 5, 5 )
-		bSizer20 = wx.BoxSizer( wx.VERTICAL )
-
-
-		self.m_scrolledWindow2.SetSizer( bSizer20 )
-		self.m_scrolledWindow2.Layout()
-		bSizer20.Fit( self.m_scrolledWindow2 )
 		bSizer97.Add( self.m_scrolledWindow2, 1, wx.EXPAND |wx.ALL, 5 )
 
 		self.DownloadButton = wx.Button( self.ProductsList, wx.ID_ANY, u"טען מוצרים קודמים", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.DownloadButton.SetFont( wx.Font( 14, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.DownloadButton.SetForegroundColour( wx.Colour( 0, 128, 0 ) )
+		self.DownloadButton.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
+
 		bSizer97.Add( self.DownloadButton, 0, wx.ALL, 5 )
 
 
@@ -372,91 +374,30 @@ class SellerRequestScreen ( wx.Frame ):
 
 		Description.Add( self.Header, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
+		bSizer27 = wx.BoxSizer( wx.HORIZONTAL )
 
-		Description.Add( ( 0, 0), 2, wx.EXPAND, 5 )
-
-		bSizer13 = wx.BoxSizer( wx.HORIZONTAL )
-
-
-		bSizer13.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		gSizer1 = wx.GridSizer( 2, 2, 0, 0 )
-
-		self.type = wx.StaticText( self, wx.ID_ANY, u"Product Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.type = wx.StaticText( self, wx.ID_ANY, u"Product Type:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.type.Wrap( -1 )
 
-		self.type.SetFont( wx.Font( 10, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
+		self.type.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_HEAVY, False, "Arial Black" ) )
 		self.type.SetForegroundColour( wx.Colour( 255, 128, 0 ) )
 
-		gSizer1.Add( self.type, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
-
-		bSizer17 = wx.BoxSizer( wx.VERTICAL )
+		bSizer27.Add( self.type, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
 		self.ProductTypeBox_Seller = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer17.Add( self.ProductTypeBox_Seller, 0, wx.ALL|wx.EXPAND, 5 )
+		self.ProductTypeBox_Seller.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 
-
-		gSizer1.Add( bSizer17, 2, wx.EXPAND, 0 )
-
-
-		bSizer13.Add( gSizer1, 3, wx.ALL|wx.EXPAND, 0 )
-
-
-		bSizer13.Add( ( 0, 0), 2, wx.EXPAND, 5 )
-
-
-		Description.Add( bSizer13, 1, wx.EXPAND, 0 )
-
-
-		Description.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		bSizer35 = wx.BoxSizer( wx.HORIZONTAL )
-
-
-		bSizer35.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		bSizer27.Add( self.ProductTypeBox_Seller, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
 		self.matchButton = wx.Button( self, wx.ID_ANY, u"Find a match", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.matchButton.SetFont( wx.Font( 15, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
+		self.matchButton.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.matchButton.SetForegroundColour( wx.Colour( 0, 128, 64 ) )
 		self.matchButton.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
 
-		bSizer35.Add( self.matchButton, 1, wx.ALL, 5 )
+		bSizer27.Add( self.matchButton, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
 
-		bSizer35.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-
-		Description.Add( bSizer35, 2, wx.EXPAND, 5 )
-
-
-		self.SetSizer( Description )
-		self.Layout()
-
-		self.Centre( wx.BOTH )
-
-		# Connect Events
-		self.matchButton.Bind( wx.EVT_BUTTON, self.matchButtonOnButtonClick )
-
-	def __del__( self ):
-		pass
-
-
-	# Virtual event handlers, override them in your derived class
-	def matchButtonOnButtonClick( self, event ):
-		event.Skip()
-
-
-###########################################################################
-## Class SellerResultScreen
-###########################################################################
-
-class SellerResultScreen ( wx.Frame ):
-
-	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
-
-		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
-		self.SetBackgroundColour( wx.Colour( 0, 128, 64 ) )
+		Description.Add( bSizer27, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 		bSizer21 = wx.BoxSizer( wx.VERTICAL )
 
@@ -475,12 +416,6 @@ class SellerResultScreen ( wx.Frame ):
 
 		self.m_scrolledWindow3 = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
 		self.m_scrolledWindow3.SetScrollRate( 5, 5 )
-		GridOfPreviousProducts = wx.BoxSizer( wx.VERTICAL )
-
-
-		self.m_scrolledWindow3.SetSizer( GridOfPreviousProducts )
-		self.m_scrolledWindow3.Layout()
-		GridOfPreviousProducts.Fit( self.m_scrolledWindow3 )
 		bSizer22.Add( self.m_scrolledWindow3, 4, wx.EXPAND |wx.ALL, 5 )
 
 
@@ -490,12 +425,23 @@ class SellerResultScreen ( wx.Frame ):
 		bSizer21.Add( bSizer22, 1, wx.EXPAND, 5 )
 
 
-		self.SetSizer( bSizer21 )
+		Description.Add( bSizer21, 1, wx.EXPAND, 5 )
+
+
+		self.SetSizer( Description )
 		self.Layout()
 
 		self.Centre( wx.BOTH )
 
+		# Connect Events
+		self.matchButton.Bind( wx.EVT_BUTTON, self.matchButtonOnButtonClick )
+
 	def __del__( self ):
 		pass
+
+
+	# Virtual event handlers, override them in your derived class
+	def matchButtonOnButtonClick( self, event ):
+		event.Skip()
 
 

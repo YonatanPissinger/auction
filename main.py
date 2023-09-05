@@ -1,5 +1,5 @@
 import wx
-from mna import OpenScreen, CustomerScreen, SellerRequestScreen, SellerResultScreen
+from mna import OpenScreen, CustomerScreen, SellerRequestScreen
 from protobuf_out import messages
 import requests
 import betterproto
@@ -73,25 +73,24 @@ class FirstScreen(OpenScreen):
         check_customer_or_seller_status = "seller"
 
 
+def GetUserName() -> messages.PreviousProductsRequest:
+
+    user_name = messages.PreviousProductsRequest()
+    user_name.previous_products_user_name_request = customer_name
+
+    return user_name
+
+
 class SecondScreen(CustomerScreen):
     def __init__(self):
         super().__init__(None)
 
-    def GetUserName(self) -> messages.PreviousProductsRequest:
-
-        user_name = messages.PreviousProductsRequest()
-        user_name.previous_products_user_name_request = customer_name
-
-        return user_name
-
     def GetCustomerProductData(self) -> messages.CustomerProductData:
-
         customer_product_data = messages.CustomerProductData()
         customer_product_data.user_name = customer_name
         customer_product_data.user_phone_number = customer_phone_number
         customer_product_data.customer_product_type = self.ProductTypeBox.GetValue()
         customer_product_data.customer_note = self.NoteBox.GetValue()
-
         return customer_product_data
 
     def AddButtonOnButtonClick(self, event):
@@ -99,10 +98,8 @@ class SecondScreen(CustomerScreen):
         QueryServerForCustomerProduct(customer_data)
 
     def DownloadedButton_OnButtonClick(self, event):
-
-        user_name = self.GetUserName()
-
-        QueryServerForPreviousProductRequest(user_name)
+        user_name = GetUserName()
+        QueryServerForPreviousProductRequest(user_name, self)
 
 
 class ThirdScreen(SellerRequestScreen):
@@ -116,14 +113,7 @@ class ThirdScreen(SellerRequestScreen):
         return seller_product_data
 
     def matchButtonOnButtonClick(self, event):
-        QueryServerForSellerProduct(self.GetSellerProductData())
-        forth_screen = ForthScreen()
-        forth_screen.Show()
-
-
-class ForthScreen(SellerResultScreen):
-    def __init__(self):
-        super().__init__(None)
+        QueryServerForSellerProduct(self.GetSellerProductData(), self)
 
 
 def QueryServerForNewUser(new_user_data: messages.NewUserData):
@@ -209,7 +199,7 @@ def QueryServerForCustomerProduct(customer_product_data: messages.CustomerProduc
         raise RuntimeError(f"Unexpected message from server: {typename}")
 
 
-def QueryServerForSellerProduct(seller_product_data: messages.SellerProductData):
+def QueryServerForSellerProduct(seller_product_data: messages.SellerProductData, self=None):
     message_to_server = messages.MessageToServer()
     message_to_server.seller_product_data = seller_product_data
     data_to_server: bytes = message_to_server.SerializeToString()
@@ -223,10 +213,23 @@ def QueryServerForSellerProduct(seller_product_data: messages.SellerProductData)
     message_to_user: messages.MessageToUser = messages.MessageToUser().parse(res.content)
     message_to_user.match_products.FromString(res.content)
     received_messages = betterproto.which_one_of(message_to_user, "StructMessageToUser")
+    sizer = wx.BoxSizer(wx.VERTICAL)
 
     typename = received_messages[0]
-
     if typename == "match_products":
+        if self is not None:
+
+            for product in received_messages[1].relevant_match_products:
+                # Create a StaticText control for each product and add it to the sizer
+                text = wx.StaticText(self.m_scrolledWindow3,
+                                     label=f"name: {product.user_name}; note: {product.customer_note}; phone: {product.user_phone_number}")
+                sizer.Add(text, 0, wx.ALL, 5)  # Add each StaticText control to the sizer with some spacing
+
+            # Set the sizer for the scrolled window
+            self.m_scrolledWindow3.SetSizer(sizer)
+
+            # Fit the sizer to the scrolled window's size
+            sizer.Fit(self.m_scrolledWindow3)
         print(received_messages[1])
     elif typename == "server_error":
         error_message: str = message_to_user.server_error.error_message
@@ -238,7 +241,7 @@ def QueryServerForSellerProduct(seller_product_data: messages.SellerProductData)
         raise RuntimeError(f"Unexpected message from server: {typename}")
 
 
-def QueryServerForPreviousProductRequest(customer_name_request: messages.PreviousProductsRequest):
+def QueryServerForPreviousProductRequest(customer_name_request: messages.PreviousProductsRequest, self=None):
     message_to_server = messages.MessageToServer()
     message_to_server.previous_products = customer_name_request
     data_to_server: bytes = message_to_server.SerializeToString()
@@ -250,9 +253,24 @@ def QueryServerForPreviousProductRequest(customer_name_request: messages.Previou
         raise Exception(f"Server returned status code {res.status_code}")
     message_to_user: messages.MessageToUser = messages.MessageToUser().parse(res.content)
     received_messages = betterproto.which_one_of(message_to_user, "StructMessageToUser")
+    sizer = wx.BoxSizer(wx.VERTICAL)
 
     typename = received_messages[0]
     if typename == "current_customer_products":
+        if self is not None:
+
+            for product in received_messages[1].relevant_current_customer_products:
+                # Create a StaticText control for each product and add it to the sizer
+                text = wx.StaticText(self.m_scrolledWindow2,
+                                     label=f"type: {product.customer_product_type}; note: {product.customer_note}")
+                sizer.Add(text, 0, wx.ALL, 5)  # Add each StaticText control to the sizer with some spacing
+
+            # Set the sizer for the scrolled window
+            self.m_scrolledWindow2.SetSizer(sizer)
+
+            # Fit the sizer to the scrolled window's size
+            sizer.Fit(self.m_scrolledWindow2)
+
         print(received_messages[1])
     elif typename == "server_error":
         error_message: str = message_to_user.server_error.error_message
@@ -262,15 +280,6 @@ def QueryServerForPreviousProductRequest(customer_name_request: messages.Previou
         pass
     else:
         raise RuntimeError(f"Unexpected message from server: {typename}")
-
-        # AddProductToGUI()
-    # elif typename == "ListCurrentCustomerProducts":
-    #    print(f"Server returned success:
-    #    {message_to_user.current_customer_products.relevant_current_customer_products}")
-
-
-def AddProductToGUI():
-    pass
 
 
 def CustomerOrSeller(user_data: messages.NewUserData):
