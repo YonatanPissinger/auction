@@ -251,14 +251,20 @@ class CustomerScreen ( wx.Frame ):
 
 		self.m_scrolledWindow2 = wx.ScrolledWindow( self.ProductsList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
 		self.m_scrolledWindow2.SetScrollRate( 5, 5 )
-		bSizer97.Add( self.m_scrolledWindow2, 1, wx.EXPAND |wx.ALL, 5 )
+		self.m_scrolledWindow2.SetMinSize( wx.Size( 250,-1 ) )
+		self.m_scrolledWindow2.SetMaxSize( wx.Size( 250,130 ) )
+
+		bSizer97.Add( self.m_scrolledWindow2, 10, wx.ALIGN_RIGHT|wx.RIGHT, 5 )
+
+
+		bSizer97.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
 		self.DownloadButton = wx.Button( self.ProductsList, wx.ID_ANY, u"טען מוצרים קודמים", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.DownloadButton.SetFont( wx.Font( 14, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.DownloadButton.SetForegroundColour( wx.Colour( 0, 128, 0 ) )
 		self.DownloadButton.SetBackgroundColour( wx.Colour( 255, 128, 0 ) )
 
-		bSizer97.Add( self.DownloadButton, 0, wx.ALL, 5 )
+		bSizer97.Add( self.DownloadButton, 2, wx.ALL, 5 )
 
 
 		self.ProductsList.SetSizer( bSizer97 )

@@ -11,7 +11,7 @@ app = Flask("Server Name")
 database = Database.Database()
 
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['ee'])
 def parse_request():
     received_data: bytes = request.data
     try:
@@ -103,6 +103,7 @@ def parse_request():
 
                 message_to_user = messages.MessageToUser()
                 message_to_user.current_customer_products = messages.ListCurrentCustomerProducts()
+                message_to_user.current_customer_products.relevant_current_customer_products.clear()
                 message_to_user.current_customer_products.relevant_current_customer_products.extend(list_of_customer)
                 return bytes(message_to_user), http.HTTPStatus.OK
             except Exception as e:
